@@ -23,6 +23,8 @@ target 'NutriLog' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'RNPurchases', :path => '../node_modules/react-native-purchases'
+
   target 'NutriLogTests' do
     inherit! :complete
     # Pods for testing
