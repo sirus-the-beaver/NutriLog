@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
+const subscriptionRoutes = require('./routes/subscriptionRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -19,8 +20,9 @@ mongoose.connect(process.env.MONGO_URI, {
     console.error(error);
 });
 
-app.use('/api/users', userRoutes);
-app.use('/api/purchases', purchaseRoutes);
+app.use('/api', userRoutes);
+app.use('/api', purchaseRoutes);
+app.use('/api', subscriptionRoutes);
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
