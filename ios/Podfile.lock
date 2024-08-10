@@ -1166,6 +1166,8 @@ PODS:
     - React-logger (= 0.74.5)
     - React-perflogger (= 0.74.5)
     - React-utils (= 0.74.5)
+  - ReactNativeCameraKit (13.0.0):
+    - React-Core
   - RevenueCat (5.2.3)
   - RNPurchases (8.0.1):
     - PurchasesHybridCommon (= 13.0.1)
@@ -1229,6 +1231,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - ReactNativeCameraKit (from `../node_modules/react-native-camera-kit`)
   - RNPurchases (from `../node_modules/react-native-purchases`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1346,6 +1349,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeCameraKit:
+    :path: "../node_modules/react-native-camera-kit"
   RNPurchases:
     :path: "../node_modules/react-native-purchases"
   Yoga:
@@ -1406,6 +1411,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: cfbe85c3510c541ec6dc815c7729b41304b67961
   React-utils: f242eb7e7889419d979ca0e1c02ccc0ea6e43b29
   ReactCommon: f7da14a8827b72704169a48c929bcde802698361
+  ReactNativeCameraKit: 9d46a5d7dd544ca64aa9c03c150d2348faf437eb
   RevenueCat: 86e4486345a6f7740fecb1eeff91eeff8708eee1
   RNPurchases: ce154ebf62cb25c95614540ccf01ea8c2f586e2d
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
