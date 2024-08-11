@@ -13,12 +13,12 @@ const BarcodeScanner = ({ onScan }) => {
     };
     
     return (
-        <View style={styles.container}>
-        <BarcodeScan
-            onBarcodeScan={handleBarcodeScan}
-            style={styles.scanner}
-        />
-        <Text style={styles.instructions}>Scan a barcode</Text>
+        <View className="flex-1 items-center justify-center bg-gray-100">
+            <BarcodeScan
+                onBarcodeScan={handleBarcodeScan}
+                style={StyleSheet.absoluteFillObject}
+            />
+            <Text className="p-4 bg-white rounded shadow-md">Scan a barcode</Text>
         </View>
     );
 };
