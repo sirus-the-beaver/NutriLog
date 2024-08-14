@@ -12,16 +12,16 @@ const getFoodData = async (barcode) => {
         });
 
         const nutrients = {
-            calories: response.data.product.nutriments["energy-kcal_value"],
-            total_fat: response.data.product.nutriments["fat"],
-            saturated_fat: response.data.product.nutriments["saturated-fat"],
-            cholesterol: response.data.product.nutriments["cholesterol"],
-            sodium: response.data.product.nutriments["sodium_value"],
-            total_carbohydrates: response.data.product.nutriments["carbohydrates"],
-            dietary_fiber: response.data.product.nutriments["fiber"],
-            sugars: response.data.product.nutriments["sugars"],
-            protein: response.data.product.nutriments["proteins"],
-            iron: response.data.product.nutriments["iron_value"],
+            calories: response.data.product.nutriments["energy-kcal_value"] || 0,
+            total_fat: response.data.product.nutriments["fat"] || 0,
+            saturated_fat: response.data.product.nutriments["saturated-fat"] || 0,
+            cholesterol: response.data.product.nutriments["cholesterol"] || 0,
+            sodium: response.data.product.nutriments["sodium_value"] || 0,
+            total_carbohydrates: response.data.product.nutriments["carbohydrates"] || 0,
+            dietary_fiber: response.data.product.nutriments["fiber"] || 0,
+            sugars: response.data.product.nutriments["sugars"] || 0,
+            protein: response.data.product.nutriments["proteins"] || 0,
+            iron: response.data.product.nutriments["iron_value"] || 0,
         }
         return nutrients;
     } catch (error) {
