@@ -7,6 +7,10 @@ const FoodLogSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    foodId: {
+        type: String,
+        required: true,
+    },
     food: {
         type: String,
         required: true,
