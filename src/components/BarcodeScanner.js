@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { CameraScreen } from 'react-native-camera-kit';
 import FoodDataService from '../../backend/services/FoodDataService';
 
@@ -20,17 +20,18 @@ const BarcodeScanner = ({ onScan }) => {
     
     return (
         <View className="flex-1 items-center justify-center bg-gray-100">
-            <CameraScreen
-                actions={{ rightButtonText: 'Done', leftButtonText: 'Cancel' }}
-                onBottomButtonPressed={() => setScanned(false)}
-                showFrame={true}
-                scanBarcode={true}
-                onReadCode={(event) => handleBarcodeScan(event.nativeEvent.codeStringValue)}
-                style={StyleSheet.absoluteFillObject}
-            />
+            {!scanned && (
+                <CameraScreen
+                    actions={{ rightButtonText: 'Done', leftButtonText: 'Cancel' }}
+                    onBottomButtonPressed={() => setScanned(false)}
+                    showFrame={true}
+                    scanBarcode={true}
+                    onReadCode={(event) => handleBarcodeScan(event.nativeEvent.codeStringValue)}
+                    style={StyleSheet.absoluteFillObject}
+                />
+            )}
             {scanned && (
                 <View className="p-4 bg-white rounded shadow-md">
-                    <Text className="font-bold">Barcode Data</Text>
                     {nutritionalInfo && (
                         <View>
                             <Text className="font-bold">Nutritional Information</Text>
@@ -46,6 +47,7 @@ const BarcodeScanner = ({ onScan }) => {
                             <Text>Iron: {nutritionalInfo.iron} mg</Text>
                         </View>
                     )}
+                    <Button title="Scan Another Item" onPress={() => setScanned(false)} />
                 </View>
             )}
         </View>
