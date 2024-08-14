@@ -2,9 +2,6 @@
 #
 .DS_Store
 
-#Frontend
-.env
-
 # Backend
 backend/.env
 backend/node_modules

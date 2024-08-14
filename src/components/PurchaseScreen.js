@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Text, View } from 'react-native';
-import { fetchOfferings, purchasePackage, checkSubscriptionStatus } from './PurchaseService';
+import { fetchOfferings, purchasePackage, checkSubscriptionStatus } from '../../backend/services/PurchaseService';
 
 const PurchaseScreen = () => {
   const [offerings, setOfferings] = useState(null);

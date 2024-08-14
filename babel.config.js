@@ -1,7 +1,9 @@
 module.exports = {
   presets: [
-    'module:@react-native/babel-preset',
     'module:metro-react-native-babel-preset',
   ],
-  plugins: ['nativewind/babel'],
+  plugins: [
+    ['nativewind/babel', { loose: true }], 
+    ['@babel/plugin-transform-private-methods', { loose: true }],
+  ],
 };

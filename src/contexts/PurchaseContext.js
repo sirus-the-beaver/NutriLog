@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { fetchOfferings, purchasePackage, handlePurchases, checkSubscriptionStatus } from './PurchaseService';
+import { fetchOfferings, purchasePackage, handlePurchases, checkSubscriptionStatus } from '../backend/services/PurchaseService';
 
 const PurchaseContext = createContext();
 
