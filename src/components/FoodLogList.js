@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import SignOut from './SignOut';
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
@@ -50,6 +51,7 @@ const FoodLogList = () => {
 
     return (
         <View>
+            <SignOut />
             <Text>Food Log</Text>
             <FlatList
                 data={foodLogs}

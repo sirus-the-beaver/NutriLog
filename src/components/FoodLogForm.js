@@ -4,6 +4,7 @@ import BarcodeScanner from './BarcodeScanner';
 import FoodDataService from '../../backend/services/FoodDataService';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SignOut from './SignOut';
 
 const FoodLogForm = () => {
     const [isScannerVisible, setScannerVisible] = useState(false);
@@ -53,6 +54,7 @@ const FoodLogForm = () => {
 
     return (
         <View>
+            <SignOut />
             <Button title="Scan Barcode" onPress={() => setScannerVisible(true)} />
 
             {nutritionalInfo && (
