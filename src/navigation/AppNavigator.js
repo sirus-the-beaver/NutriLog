@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import SignUp from '../components/SignUp';
 import SignIn from '../components/SignIn';
 import FoodLogForm from '../components/FoodLogForm'
+import FoodLogList from '../components/FoodLogList'
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="FoodLogForm" component={FoodLogForm} />
+                <Stack.Screen name="FoodLogList" component={FoodLogList} />
             </Stack.Navigator>
         </NavigationContainer>
     );

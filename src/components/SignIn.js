@@ -13,7 +13,7 @@ const SignIn = ({ navigation }) => {
                 { headers: { 'Content-Type': 'application/json' } }
             );
             await AsyncStorage.setItem('user', response.data.userId);
-            navigation.navigate('FoodLogForm')
+            navigation.navigate('FoodLogList')
         } catch (error) {
             console.error(error);
         }
