@@ -1,8 +1,9 @@
 import React from 'react';
 import FoodLogForm from './src/components/FoodLogForm';
+import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => (
-  <FoodLogForm />
+    <AppNavigator />
 );
 
 export default App;
