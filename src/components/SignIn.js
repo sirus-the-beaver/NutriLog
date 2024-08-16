@@ -35,3 +35,5 @@ const SignIn = ({ onSignIn }) => {
         </View>
     );
 };
+
+export default SignIn;
