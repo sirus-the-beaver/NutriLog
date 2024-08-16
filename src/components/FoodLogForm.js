@@ -45,8 +45,7 @@ const FoodLogForm = () => {
                 iron: foodData.iron,
                 date: new Date(),
             }
-            console.log(fullData);
-            await axios.post('http://172.20.10.4:5004/api/foodLog', fullData);
+            await axios.post('http://172.20.10.4:5007/api/foodLog', fullData);
         } catch (error) {
             console.error(error);
         }

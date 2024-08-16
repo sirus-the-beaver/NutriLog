@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Button, Text, TextInput, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const SignUp = ({ navigation }) => {
@@ -15,7 +16,9 @@ const SignUp = ({ navigation }) => {
         }
 
         try {
-            const response = await axios.post('http://172.20.10.4:5004/api/register', { name, email, password });
+            const response = await axios.post('http://172.20.10.4:5007/api/register', { name: name, email: email, password: password },
+                { headers: { 'Content-Type': 'application/json' } }
+        );
 
             const { token, userId } = response.data;
             await AsyncStorage.setItem('user', userId);
@@ -54,6 +57,7 @@ const SignUp = ({ navigation }) => {
                 secureTextEntry
             />
             <Button title="Sign Up" onPress={handleSignUp} />
+            <Button title="Sign In" onPress={() => navigation.navigate('SignIn')} />
         </View>
     );
 };

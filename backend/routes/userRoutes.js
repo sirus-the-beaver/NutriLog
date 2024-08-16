@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // Register a new user
 router.post('/register', async (req, res) => {
+    console.log(req.body);
     const { name, email, password } = req.body;
 
     try {
@@ -62,7 +63,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Check if the password is correct
-        const isMatch = await user.comparePassword(password);
+        const isMatch = await user.matchPassword(password);
 
         // If the password is incorrect, return an error
         if (!isMatch) {

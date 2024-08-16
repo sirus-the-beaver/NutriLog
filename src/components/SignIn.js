@@ -3,19 +3,23 @@ import { View, Button, Text, TextInput } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SignIn = ({ onSignIn }) => {
-    const [email, setUsername] = useState('');
+const SignIn = ({ navigation }) => {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSignIn = async (user) => {
+    const handleSignIn = async () => {
         try {
-            const response = await axios.post('http://172.20.10.4:5003/api/login', { email, password });
-            onSignIn(response.data.userId);
+            const response = await axios.post('http://172.20.10.4:5007/api/login', { email, password },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
             await AsyncStorage.setItem('user', response.data.userId);
+            navigation.navigate('FoodLogForm')
         } catch (error) {
             console.error(error);
         }
     };
+
+    
 
     return (
         <View>
@@ -23,7 +27,7 @@ const SignIn = ({ onSignIn }) => {
             <TextInput
                 placeholder="Email"
                 value={email}
-                onChangeText={setUsername}
+                onChangeText={setEmail}
             />
             <TextInput
                 placeholder="Password"

@@ -1,5 +1,5 @@
 import React from 'react';
-import FoodLogForm from './src/components/FoodLogForm';
+import 'react-native-gesture-handler';
 import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => (
