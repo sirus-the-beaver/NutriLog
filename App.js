@@ -1,12 +1,8 @@
 import React from 'react';
-import BarcodeScanner from './src/components/BarcodeScanner';
+import FoodLogForm from './src/components/FoodLogForm';
 
 const App = () => (
-  // <PurchaseProvider>
-  //   <PurchaseScreen />
-  // </PurchaseProvider>
-
-  <BarcodeScanner />
+  <FoodLogForm />
 );
 
 export default App;

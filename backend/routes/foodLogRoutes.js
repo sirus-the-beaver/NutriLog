@@ -30,7 +30,7 @@ router.post('/foodLog', async (req, res) => {
 });
 
 // Get all food logs
-router.get('/foodLogs/:userId', async (req, res) => {
+router.get('/foodLog/:userId', async (req, res) => {
     try {
         const foodLogs = await FoodLog.find({ user: req.params.userId });
         res.status(200).json(foodLogs);
@@ -52,3 +52,5 @@ router.delete('/foodLog/:id', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
+module.exports = router;

@@ -7,11 +7,12 @@ const getFoodData = async (barcode) => {
         const response = await axios.get(`${OPEN_FOOD_FACTS_API_BASE_URL}/${barcode}.json`, {
             headers: {
                 'Content-Type': 'application/json',
-                'User-Agent': 'NutriLog',
+                'User-Agent': 'NutriLog - Android - Version 1.0',
             },
         });
 
         const nutrients = {
+            name: response.data.product["product_name"] || 'Unknown',
             calories: response.data.product.nutriments["energy-kcal_value"] || 0,
             total_fat: response.data.product.nutriments["fat"] || 0,
             saturated_fat: response.data.product.nutriments["saturated-fat"] || 0,
