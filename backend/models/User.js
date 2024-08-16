@@ -4,6 +4,7 @@ const bycrypt = require('bcryptjs');
 
 // Create a new schema for the user
 const UserSchema = new Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String,
         required: true,

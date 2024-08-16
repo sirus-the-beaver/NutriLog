@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 // Create a new schema for the food log
 const FoodLogSchema = new mongoose.Schema({
     user: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
     },
     foodId: {

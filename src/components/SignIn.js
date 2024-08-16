@@ -10,8 +10,8 @@ const SignIn = ({ onSignIn }) => {
     const handleSignIn = async (user) => {
         try {
             const response = await axios.post('http://172.20.10.4:5003/api/login', { email, password });
-            onSignIn(response.data.token);
-            await AsyncStorage.setItem('token', response.data.token);
+            onSignIn(response.data.userId);
+            await AsyncStorage.setItem('user', response.data.userId);
         } catch (error) {
             console.error(error);
         }

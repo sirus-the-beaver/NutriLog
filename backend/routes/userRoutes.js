@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
             { expiresIn: '1h' },
             (error, token) => {
                 if (error) throw error;
-                res.json({ token });
+                res.json({ token, userId: user.id });
             }
         );
     } catch (error) {
@@ -82,7 +82,7 @@ router.post('/login', async (req, res) => {
             { expiresIn: '1h' },
             (error, token) => {
                 if (error) throw error;
-                res.json({ token });
+                res.json({ token, userId: user.id });
             }
         );
     } catch (error) {

@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Button, Text, Modal } from 'react-native';
 import BarcodeScanner from './BarcodeScanner';
 import FoodDataService from '../../backend/services/FoodDataService';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FoodLogForm = () => {
     const [isScannerVisible, setScannerVisible] = useState(false);
     const [scannedData, setScannedData] = useState(null);
     const [nutritionalInfo, setNutritionalInfo] = useState(null);
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const user = await AsyncStorage.getItem('user');
+            if (user) {
+                setUserId(user);
+            }
+        };
+        fetchUser();
+    }, []);
+
 
     const handleScan = async (data) => {
         setScannerVisible(false);
@@ -17,7 +30,7 @@ const FoodLogForm = () => {
             const foodData = await FoodDataService.getFoodData(scannedData);
             setNutritionalInfo(foodData);
             const fullData = {
-                user: 'test',
+                user: userId,
                 foodId: 'test',
                 food: foodData.name,
                 calories: foodData.calories,
