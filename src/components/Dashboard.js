@@ -24,3 +24,5 @@ const Dashboard = () => {
         </View>
     );
 }
+
+export default Dashboard;

@@ -12,10 +12,19 @@ import ExerciseLogForm from '../components/ExerciseLogForm';
 import ExerciseLogList from '../components/ExerciseLogList';
 import ProgressForm from '../components/ProgressForm';
 import ProgressList from '../components/ProgressList';
+import Dashboard from '../components/Dashboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const DashboardNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+        </Stack.Navigator>
+    );
+};
 
 const FoodLogNavigator = () => {
     return (
@@ -58,6 +67,8 @@ const TabNavigator = () => {
                         iconName = 'bicycle';
                     } else if (route.name === 'ProgressLog') {
                         iconName = 'line-chart';
+                    } else if (route.name === 'Dashboard') {
+                        iconName = 'home';
                     }
 
                     return <Icon name={iconName} size={size} color={color} />;
@@ -67,6 +78,7 @@ const TabNavigator = () => {
             <Tab.Screen name="FoodLog" component={FoodLogNavigator} />
             <Tab.Screen name="ExerciseLog" component={ExerciseLogNavigator} />
             <Tab.Screen name="ProgressLog" component={ProgressNavigator} />
+            <Tab.Screen name="Dashboard" component={DashboardNavigator} />
         </Tab.Navigator>
     );
 };
