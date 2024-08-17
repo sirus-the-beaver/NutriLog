@@ -9,18 +9,13 @@ const FoodLogList = () => {
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const user = await AsyncStorage.getItem('user');
-            if (user) {
-                setUserId(user);
-            }
-        };
-        fetchUser();
-    });
-
-    useEffect(() => {
         const fetchFoodLogs = async () => {
             try {
+                const user = await AsyncStorage.getItem('user');
+                if (user) {
+                    setUserId(user);
+                }
+
                 const response = await axios.get('http://172.20.10.4:5007/api/foodLog/' + userId,
                     { headers: { 'Content-Type': 'application/json' } }
                 );

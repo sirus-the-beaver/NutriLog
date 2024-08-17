@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { View, Button } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
 
 const clearSession = async () => {
     try {
@@ -10,8 +11,9 @@ const clearSession = async () => {
     }
 }
 
-const SignOut = ({ navigation }) => {
+const SignOut = () => {
     const [isSignedIn, setIsSignedIn] = useState(false);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const checkSession = async () => {
