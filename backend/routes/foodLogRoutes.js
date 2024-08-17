@@ -4,11 +4,10 @@ const FoodLog = require('../models/FoodLog');
 
 // Create a new food log
 router.post('/foodLog', async (req, res) => {
-    const { user, foodId, food, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrates, dietary_fiber, sugars, protein, iron, date } = req.body;
+    const { user, food, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrates, dietary_fiber, sugars, protein, iron, date } = req.body;
     try {
         const foodLog = new FoodLog({
             user,
-            foodId,
             food,
             calories,
             total_fat,
