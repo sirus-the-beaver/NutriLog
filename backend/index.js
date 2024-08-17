@@ -5,6 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
 const foodLogRoutes = require('./routes/foodLogRoutes');
+const exerciseLogRoutes = require('./routes/exerciseLogRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/api', userRoutes);
 app.use('/api', purchaseRoutes);
 app.use('/api', subscriptionRoutes);
 app.use('/api', foodLogRoutes);
+app.use('/api', exerciseLogRoutes);
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {

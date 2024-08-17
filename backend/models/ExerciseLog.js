@@ -28,3 +28,7 @@ const ExerciseLogSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
+const ExerciseLog = mongoose.model('ExerciseLog', ExerciseLogSchema);
+
+module.exports = ExerciseLog;
