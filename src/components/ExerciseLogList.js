@@ -1,30 +1,32 @@
-import React, { useEffect, useState} from 'react';
+import React, { useCallback, useState} from 'react';
 import { View, Text, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import SignOut from './SignOut';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const ExerciseLogList = () => {
     const [exerciseLogs, setExerciseLogs] = useState([]);
     const navigation = useNavigation();
 
-    useEffect(() => {
-        const fetchExerciseLogs = async () => {
-            try {
-                const user = await AsyncStorage.getItem('user');
-                if (user) {
-                    const response = await axios.get(`http://172.20.10.4:5009/api/exerciseLog/${user}`,
-                        { headers: { 'Content-Type': 'application/json' } }
-                    )
-                    setExerciseLogs(response.data);
+    useFocusEffect(
+        useCallback(() => {
+            const fetchExerciseLogs = async () => {
+                try {
+                    const user = await AsyncStorage.getItem('user');
+                    if (user) {
+                        const response = await axios.get(`http://172.20.10.4:5009/api/exerciseLog/${user}`,
+                            { headers: { 'Content-Type': 'application/json' } }
+                        )
+                        setExerciseLogs(response.data);
+                    }
+                } catch (error) {
+                    console.error(error);
                 }
-            } catch (error) {
-                console.error(error);
             }
-        }
-        fetchExerciseLogs();
-    }, []);
+            fetchExerciseLogs();
+        }, [])
+    );
 
     const renderItem = ({ item }) => (
         <View>

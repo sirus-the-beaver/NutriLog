@@ -26,7 +26,7 @@ const ProgressForm = () => {
             const fullData = {
                 user: userId,
                 weight: weight,
-                bodyFat: bodyFat,
+                body_fat: bodyFat,
                 date: new Date(),
             }
             await axios.post('http://172.20.10.4:5009/api/progress', fullData);

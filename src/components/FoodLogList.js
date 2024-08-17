@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import SignOut from './SignOut';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
     const navigation = useNavigation();
 
-    useEffect(() => {
-        const fetchFoodLogs = async () => {
-            try {
-                const user = await AsyncStorage.getItem('user');
-                if (user) {
-                    const response = await axios.get(`http://172.20.10.4:5009/api/foodLog/${user}`,
-                        { headers: { 'Content-Type': 'application/json' } }
-                    )
-                    setFoodLogs(response.data);
-                };
-            } catch (error) {
-                console.error(error);
+    useFocusEffect(
+        useCallback(() => {
+            const fetchFoodLogs = async () => {
+                try {
+                    const user = await AsyncStorage.getItem('user');
+                    if (user) {
+                        const response = await axios.get(`http://172.20.10.4:5009/api/foodLog/${user}`,
+                            { headers: { 'Content-Type': 'application/json' } }
+                        )
+                        setFoodLogs(response.data);
+                    };
+                } catch (error) {
+                    console.error(error);
+                }
             }
-        }
-        fetchFoodLogs();
-    }, []);
+            fetchFoodLogs();
+        }, [])
+    );
 
     const renderItem = ({ item }) => (
         <View>
