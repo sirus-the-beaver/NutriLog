@@ -54,3 +54,5 @@ const ProgressForm = () => {
         </View>
     );
 };
+
+export default ProgressForm;
