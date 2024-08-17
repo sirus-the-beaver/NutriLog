@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const auth = require('./middleware/auth');
 const userRoutes = require('./routes/userRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
@@ -26,6 +27,8 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 app.use('/api', userRoutes);
+
+app.use('/api', auth);
 app.use('/api', purchaseRoutes);
 app.use('/api', subscriptionRoutes);
 app.use('/api', foodLogRoutes);
