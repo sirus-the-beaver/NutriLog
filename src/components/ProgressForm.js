@@ -29,7 +29,7 @@ const ProgressForm = () => {
                 bodyFat: bodyFat,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5008/api/progress', fullData);
+            await axios.post('http://172.20.10.4:5009/api/progress', fullData);
             navigation.navigate('ProgressList');
         } catch (error) {
             console.error(error);

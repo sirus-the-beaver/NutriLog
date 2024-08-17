@@ -12,9 +12,64 @@ import ExerciseLogForm from '../components/ExerciseLogForm';
 import ExerciseLogList from '../components/ExerciseLogList';
 import ProgressForm from '../components/ProgressForm';
 import ProgressList from '../components/ProgressList';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const FoodLogNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="FoodLogList" component={FoodLogList} />
+            <Stack.Screen name="FoodLogForm" component={FoodLogForm} />
+            <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+        </Stack.Navigator>
+    );
+};
+
+const ExerciseLogNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="ExerciseLogList" component={ExerciseLogList} />
+            <Stack.Screen name="ExerciseLogForm" component={ExerciseLogForm} />
+        </Stack.Navigator>
+    );
+};
+
+const ProgressNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="ProgressList" component={ProgressList} />
+            <Stack.Screen name="ProgressForm" component={ProgressForm} />
+        </Stack.Navigator>
+    );
+};
+
+const TabNavigator = () => {
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'FoodLog') {
+                        iconName = 'cutlery';
+                    } else if (route.name === 'ExerciseLog') {
+                        iconName = 'bicycle';
+                    } else if (route.name === 'ProgressLog') {
+                        iconName = 'line-chart';
+                    }
+
+                    return <Icon name={iconName} size={size} color={color} />;
+                },
+            })}
+        >
+            <Tab.Screen name="FoodLog" component={FoodLogNavigator} />
+            <Tab.Screen name="ExerciseLog" component={ExerciseLogNavigator} />
+            <Tab.Screen name="ProgressLog" component={ProgressNavigator} />
+        </Tab.Navigator>
+    );
+};
 
 const AppNavigator = () => {
     return (
@@ -23,20 +78,8 @@ const AppNavigator = () => {
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="SignOut" component={SignOut} />
-                <Stack.Screen name="FoodLogForm" component={FoodLogForm} />
-                <Stack.Screen name="FoodLogList" component={FoodLogList} />
-                <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
-                <Stack.Screen name="ExerciseLogForm" component={ExerciseLogForm} />
-                <Stack.Screen name="ExerciseLogList" component={ExerciseLogList} />
-                <Stack.Screen name="ProgressForm" component={ProgressForm} />
-                <Stack.Screen name="ProgressList" component={ProgressList} />
+                <Stack.Screen name="TabNavigator" component={TabNavigator} />
             </Stack.Navigator>
-
-            <Tab.Navigator>
-                <Tab.Screen name="FoodLogList" component={FoodLogList} />
-                <Tab.Screen name="ExerciseLogList" component={ExerciseLogList} />
-                <Tab.Screen name="ProgressList" component={ProgressList} />
-            </Tab.Navigator>
         </NavigationContainer>
     );
 }

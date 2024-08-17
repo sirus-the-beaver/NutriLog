@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { View, Button, FlatList, Button } from 'react-native';
+import { View, Button, FlatList, Text } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import SignOut from './SignOut';
@@ -13,10 +13,12 @@ const ProgressList = () => {
         const fetchProgress = async () => {
             try {
                 const user = await AsyncStorage.getItem('user');
-                const response = await axios.get(`http://172.20.10.4:5008/api/progress/${user}`,
-                    { headers: { 'Content-Type': 'application/json' } }
-                )
-                setProgress(response.data);
+                if (user) {
+                    const response = await axios.get(`http://172.20.10.4:5009/api/progress/${user}`,
+                        { headers: { 'Content-Type': 'application/json' } }
+                    )
+                    setProgress(response.data);
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -35,7 +37,7 @@ const ProgressList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://172.20.10.4:5008/api/progress/${id}`);
+            await axios.delete(`http://172.20.10.4:5009/api/progress/${id}`);
             setProgress(progress.filter(log => log._id !== id));
         } catch (error) {
             console.error(error);
@@ -51,6 +53,7 @@ const ProgressList = () => {
                 renderItem={renderItem}
                 keyExtractor={item => item._id}
             />
+            <Button title="Add Progress" onPress={() => navigation.navigate('ProgressForm')} />
         </View>
     );
 };

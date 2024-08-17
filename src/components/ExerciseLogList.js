@@ -13,10 +13,12 @@ const ExerciseLogList = () => {
         const fetchExerciseLogs = async () => {
             try {
                 const user = await AsyncStorage.getItem('user');
-                const response = await axios.get(`http://172.20.10.4:5008/api/exerciseLog/${user}`,
-                    { headers: { 'Content-Type': 'application/json' } }
-                )
-                setExerciseLogs(response.data);
+                if (user) {
+                    const response = await axios.get(`http://172.20.10.4:5009/api/exerciseLog/${user}`,
+                        { headers: { 'Content-Type': 'application/json' } }
+                    )
+                    setExerciseLogs(response.data);
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -36,7 +38,7 @@ const ExerciseLogList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://172.20.10.4:5008/api/exerciseLog/${id}`);
+            await axios.delete(`http://172.20.10.4:5009/api/exerciseLog/${id}`);
             setExerciseLogs(exerciseLogs.filter(log => log._id !== id));
         } catch (error) {
             console.error(error);
@@ -52,6 +54,7 @@ const ExerciseLogList = () => {
                 renderItem={renderItem}
                 keyExtractor={item => item._id}
             />
+            <Button title="Add Exercise" onPress={() => navigation.navigate('ExerciseLogForm')} />
         </View>
     );
 };

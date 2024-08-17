@@ -30,10 +30,10 @@ const ExerciseLogForm = () => {
                 exercise: exercise,
                 hours: hours,
                 minutes: minutes,
-                calories: calories,
+                calories_burned: calories,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5008/api/exerciseLog', fullData);
+            await axios.post('http://172.20.10.4:5009/api/exerciseLog', fullData);
             navigation.navigate('ExerciseLogList');
         } catch (error) {
             console.error(error);

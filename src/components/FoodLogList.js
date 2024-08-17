@@ -14,7 +14,7 @@ const FoodLogList = () => {
             try {
                 const user = await AsyncStorage.getItem('user');
                 if (user) {
-                    const response = await axios.get(`http://172.20.10.4:5008/api/foodLog/${user}`,
+                    const response = await axios.get(`http://172.20.10.4:5009/api/foodLog/${user}`,
                         { headers: { 'Content-Type': 'application/json' } }
                     )
                     setFoodLogs(response.data);
@@ -47,7 +47,7 @@ const FoodLogList = () => {
     const handleDelete = async (id) => {
         try {
             console.log(id);
-            await axios.delete(`http://172.20.10.4:5008/api/foodLog/${id}`);
+            await axios.delete(`http://172.20.10.4:5009/api/foodLog/${id}`);
             setFoodLogs(foodLogs.filter(log => log._id !== id));
         } catch (error) {
             console.error(error);
