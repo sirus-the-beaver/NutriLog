@@ -6,20 +6,17 @@ import SignOut from './SignOut';
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
-    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         const fetchFoodLogs = async () => {
             try {
                 const user = await AsyncStorage.getItem('user');
                 if (user) {
-                    setUserId(user);
-                }
-
-                const response = await axios.get('http://172.20.10.4:5007/api/foodLog/' + userId,
-                    { headers: { 'Content-Type': 'application/json' } }
-                );
-                setFoodLogs(response.data);
+                    const response = await axios.get(`http://172.20.10.4:5007/api/foodLog/${user}`,
+                        { headers: { 'Content-Type': 'application/json' } }
+                    )
+                    setFoodLogs(response.data);
+                };
             } catch (error) {
                 console.error(error);
             }
