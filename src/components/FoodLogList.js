@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import SignOut from './SignOut';
+import { useNavigation } from '@react-navigation/native';
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const fetchFoodLogs = async () => {
             try {
                 const user = await AsyncStorage.getItem('user');
                 if (user) {
-                    const response = await axios.get(`http://172.20.10.4:5007/api/foodLog/${user}`,
+                    const response = await axios.get(`http://172.20.10.4:5008/api/foodLog/${user}`,
                         { headers: { 'Content-Type': 'application/json' } }
                     )
                     setFoodLogs(response.data);
@@ -38,8 +40,19 @@ const FoodLogList = () => {
             <Text>Protein: {item.protein} g</Text>
             <Text>Iron: {item.iron}%</Text>
             <Text>Date: {new Date(item.date).toLocaleDateString()}</Text>
+            <Button title="Delete" onPress={() => handleDelete(item._id)} />
         </View>
     );
+
+    const handleDelete = async (id) => {
+        try {
+            console.log(id);
+            await axios.delete(`http://172.20.10.4:5008/api/foodLog/${id}`);
+            setFoodLogs(foodLogs.filter(log => log._id !== id));
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <View>
@@ -50,6 +63,7 @@ const FoodLogList = () => {
                 renderItem={renderItem}
                 keyExtractor={item => item._id.toString()}
             />
+            <Button title="Add Food" onPress={() => navigation.navigate('FoodLogForm')} />
         </View>
     );
 };

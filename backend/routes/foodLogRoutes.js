@@ -42,7 +42,8 @@ router.get('/foodLog/:userId', async (req, res) => {
 // Delete a food log
 router.delete('/foodLog/:id', async (req, res) => {
     try {
-        const foodId = req.params.foodId;
+        const foodId = req.params.id;
+        console.log(foodId);
         const foodLog = await FoodLog.findByIdAndDelete(foodId);
         if (!foodLog) {
             return res.status(404).send('Food log not found');

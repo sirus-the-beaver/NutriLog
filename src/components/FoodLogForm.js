@@ -5,12 +5,14 @@ import FoodDataService from '../../backend/services/FoodDataService';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignOut from './SignOut';
+import { useNavigation } from '@react-navigation/native';
 
 const FoodLogForm = () => {
     const [isScannerVisible, setScannerVisible] = useState(false);
     const [scannedData, setScannedData] = useState(null);
     const [nutritionalInfo, setNutritionalInfo] = useState(null);
     const [userId, setUserId] = useState(null);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -46,7 +48,7 @@ const FoodLogForm = () => {
                 iron: foodData.iron,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5007/api/foodLog', fullData);
+            await axios.post('http://172.20.10.4:5008/api/foodLog', fullData);
         } catch (error) {
             console.error(error);
         }
@@ -80,6 +82,7 @@ const FoodLogForm = () => {
             >
                 <BarcodeScanner onScan={handleScan} />
             </Modal>
+            <Button title="Food Log List" onPress={() => navigation.navigate('FoodLogList')} />
         </View>
     );
 };

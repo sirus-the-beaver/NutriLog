@@ -6,6 +6,7 @@ import SignIn from '../components/SignIn';
 import SignOut from '../components/SignOut';
 import FoodLogForm from '../components/FoodLogForm';
 import FoodLogList from '../components/FoodLogList';
+import BarcodeScanner from '../components/BarcodeScanner';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="SignOut" component={SignOut} />
                 <Stack.Screen name="FoodLogForm" component={FoodLogForm} />
                 <Stack.Screen name="FoodLogList" component={FoodLogList} />
+                <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
             </Stack.Navigator>
         </NavigationContainer>
     );

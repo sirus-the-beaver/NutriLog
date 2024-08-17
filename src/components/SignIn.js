@@ -9,7 +9,7 @@ const SignIn = ({ navigation }) => {
 
     const handleSignIn = async () => {
         try {
-            const response = await axios.post('http://172.20.10.4:5007/api/login', { email, password },
+            const response = await axios.post('http://172.20.10.4:5008/api/login', { email, password },
                 { headers: { 'Content-Type': 'application/json' } }
             );
             await AsyncStorage.setItem('user', response.data.userId);
