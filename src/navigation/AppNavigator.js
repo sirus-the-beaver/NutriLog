@@ -12,6 +12,7 @@ import ExerciseLogForm from '../components/ExerciseLogForm';
 import ExerciseLogList from '../components/ExerciseLogList';
 import ProgressForm from '../components/ProgressForm';
 import ProgressList from '../components/ProgressList';
+import UserSettings from '../components/UserSettings';
 import Dashboard from '../components/Dashboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -75,10 +76,10 @@ const TabNavigator = () => {
                 },
             })}
         >
+            <Tab.Screen name="Dashboard" component={DashboardNavigator} />
             <Tab.Screen name="FoodLog" component={FoodLogNavigator} />
             <Tab.Screen name="ExerciseLog" component={ExerciseLogNavigator} />
             <Tab.Screen name="ProgressLog" component={ProgressNavigator} />
-            <Tab.Screen name="Dashboard" component={DashboardNavigator} />
         </Tab.Navigator>
     );
 };
@@ -90,6 +91,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="SignOut" component={SignOut} />
+                <Stack.Screen name="UserSettings" component={UserSettings} />
                 <Stack.Screen name="TabNavigator" component={TabNavigator} />
             </Stack.Navigator>
         </NavigationContainer>
