@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
@@ -115,6 +116,17 @@ router.post('/login', validateLogin, async (req, res) => {
         );
     } catch (error) {
         console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+router.delete('/deleteAccount', auth, async (req, res) => {
+    try {
+        const userId = req.user._id;
+        await User.findByIdAndDelete(userId);
+
+        res.status(200).send('User deleted');
+    } catch (error) {
         res.status(500).send('Server Error');
     }
 });
