@@ -13,6 +13,7 @@ const SignIn = ({ navigation }) => {
                 { headers: { 'Content-Type': 'application/json' } }
             );
             await AsyncStorage.setItem('user', response.data.userId);
+            await AsyncStorage.setItem('token', response.data.token);
             navigation.navigate('DashboardNavigator');
         } catch (error) {
             console.error(error);
