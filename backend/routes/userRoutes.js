@@ -2,10 +2,38 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();    
+const { check, validationResult } = require('express-validator');
+require('dotenv').config();
+
+// Middleware to validate the user input
+const validateUser = [
+    check('name', 'Name is required').not().isEmpty(),
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 }),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    }
+];
+
+// Middleware to validate login
+const validateLogin = [
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Password is required').exists(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    }
+];
 
 // Register a new user
-router.post('/register', async (req, res) => {
+router.post('/register', validateUser, async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
@@ -49,7 +77,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Login a user
-router.post('/login', async (req, res) => {
+router.post('/login', validateLogin, async (req, res) => {
     const { email, password } = req.body;
 
     try {
