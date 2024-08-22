@@ -51,7 +51,7 @@ const FoodLogForm = () => {
                 iron: foodData.iron,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5011/api/foodLog', 
+            await axios.post('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/foodLog', 
                 fullData,
                 { headers: {
                     'Content-Type': 'application/json',

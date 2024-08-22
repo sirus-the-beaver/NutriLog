@@ -16,7 +16,7 @@ const ExerciseLogList = () => {
                     const user = await AsyncStorage.getItem('user');
                     const token = await AsyncStorage.getItem('token');
                     if (user) {
-                        const response = await axios.get(`http://172.20.10.4:5011/api/exerciseLog/${user}`,
+                        const response = await axios.get(`https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/exerciseLog/${user}`,
                             { headers: { 'Content-Type': 'application/json',
                                         'Authorization': `Bearer ${token}`
                                     }
@@ -44,7 +44,7 @@ const ExerciseLogList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://172.20.10.4:5011/api/exerciseLog/${id}`);
+            await axios.delete(`https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/exerciseLog/${id}`);
             setExerciseLogs(exerciseLogs.filter(log => log._id !== id));
         } catch (error) {
             console.error(error);

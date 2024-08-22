@@ -21,7 +21,7 @@ const Delete = () => {
                             const token = await AsyncStorage.getItem('token');
                             const user = await AsyncStorage.getItem('user');
                             if (token) {
-                                const response = await axios.delete('http://172.20.10.4:5011/api/deleteAccount', {
+                                const response = await axios.delete('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/deleteAccount', {
                                     headers: {
                                         'Content-Type': 'application/json',
                                         'Authorization': `Bearer ${token}`,

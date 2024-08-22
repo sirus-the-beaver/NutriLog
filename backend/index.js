@@ -37,7 +37,7 @@ app.use('/api', foodLogRoutes);
 app.use('/api', exerciseLogRoutes);
 app.use('/api', progressRoutes);
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

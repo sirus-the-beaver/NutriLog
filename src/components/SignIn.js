@@ -9,7 +9,7 @@ const SignIn = ({ navigation }) => {
 
     const handleSignIn = async () => {
         try {
-            const response = await axios.post('http://172.20.10.4:5011/api/login', { email, password },
+            const response = await axios.post('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/login', { email, password },
                 { headers: { 'Content-Type': 'application/json' } }
             );
             await AsyncStorage.setItem('user', response.data.userId);

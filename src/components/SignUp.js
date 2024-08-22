@@ -16,7 +16,7 @@ const SignUp = ({ navigation }) => {
         }
 
         try {
-            const response = await axios.post('http://172.20.10.4:5011/api/register', { name: name, email: email, password: password },
+            const response = await axios.post('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/register', { name: name, email: email, password: password },
                 { headers: { 'Content-Type': 'application/json' } }
         );
 

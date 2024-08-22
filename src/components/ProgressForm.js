@@ -32,7 +32,7 @@ const ProgressForm = () => {
                 body_fat: bodyFat,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5011/api/progress', fullData,
+            await axios.post('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/progress', fullData,
                 { headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
