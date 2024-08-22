@@ -9,12 +9,12 @@ const SignIn = ({ navigation }) => {
 
     const handleSignIn = async () => {
         try {
-            const response = await axios.post('http://172.20.10.4:5009/api/login', { email, password },
+            const response = await axios.post('http://172.20.10.4:5011/api/login', { email, password },
                 { headers: { 'Content-Type': 'application/json' } }
             );
             await AsyncStorage.setItem('user', response.data.userId);
             await AsyncStorage.setItem('token', response.data.token);
-            navigation.navigate('DashboardNavigator');
+            navigation.navigate('TabNavigator');
         } catch (error) {
             console.error(error);
         }

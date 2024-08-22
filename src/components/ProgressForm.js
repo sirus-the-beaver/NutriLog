@@ -9,13 +9,16 @@ const ProgressForm = () => {
     const [weight, setWeight] = useState('');
     const [bodyFat, setBodyFat] = useState('');
     const [userId, setUserId] = useState(null);
+    const [token, setToken] = useState(null);
     const navigation = useNavigation();
 
     useEffect(() => {
         const fetchUser = async () => {
             const user = await AsyncStorage.getItem('user');
+            const userToken = await AsyncStorage.getItem('token');
             if (user) {
                 setUserId(user);
+                setToken(userToken);
             }
         };
         fetchUser();
@@ -29,7 +32,12 @@ const ProgressForm = () => {
                 body_fat: bodyFat,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5009/api/progress', fullData);
+            await axios.post('http://172.20.10.4:5011/api/progress', fullData,
+                { headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
             navigation.navigate('ProgressList');
         } catch (error) {
             console.error(error);

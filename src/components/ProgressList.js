@@ -14,9 +14,13 @@ const ProgressList = () => {
             const fetchProgress = async () => {
                 try {
                     const user = await AsyncStorage.getItem('user');
+                    const token = await AsyncStorage.getItem('token');
                     if (user) {
-                        const response = await axios.get(`http://172.20.10.4:5009/api/progress/${user}`,
-                            { headers: { 'Content-Type': 'application/json' } }
+                        const response = await axios.get(`http://172.20.10.4:5011/api/progress/${user}`,
+                            { headers: { 'Content-Type': 'application/json',
+                                        Authorization: `Bearer ${token}`
+                                        }
+                        }
                         )
                         setProgress(response.data);
                     }
@@ -39,7 +43,7 @@ const ProgressList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://172.20.10.4:5009/api/progress/${id}`);
+            await axios.delete(`http://172.20.10.4:5011/api/progress/${id}`);
             setProgress(progress.filter(log => log._id !== id));
         } catch (error) {
             console.error(error);

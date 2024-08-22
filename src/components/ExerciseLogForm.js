@@ -11,13 +11,16 @@ const ExerciseLogForm = () => {
     const [minutes, setMinutes] = useState('');
     const [calories, setCalories] = useState('');
     const [userId, setUserId] = useState(null);
+    const [token, setToken] = useState(null);
     const navigation = useNavigation();
 
     useEffect(() => {
         const fetchUser = async () => {
             const user = await AsyncStorage.getItem('user');
+            const userToken = await AsyncStorage.getItem('token');
             if (user) {
                 setUserId(user);
+                setToken(userToken);
             }
         };
         fetchUser();
@@ -33,7 +36,14 @@ const ExerciseLogForm = () => {
                 calories_burned: calories,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5009/api/exerciseLog', fullData);
+            await axios.post('http://172.20.10.4:5011/api/exerciseLog', 
+                fullData,
+                { headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+                }
+            );
             navigation.navigate('ExerciseLogList');
         } catch (error) {
             console.error(error);

@@ -16,12 +16,13 @@ const SignUp = ({ navigation }) => {
         }
 
         try {
-            const response = await axios.post('http://172.20.10.4:5009/api/register', { name: name, email: email, password: password },
+            const response = await axios.post('http://172.20.10.4:5011/api/register', { name: name, email: email, password: password },
                 { headers: { 'Content-Type': 'application/json' } }
         );
 
             const { token, userId } = response.data;
             await AsyncStorage.setItem('user', userId);
+            await AsyncStorage.setItem('token', token);
             Alert.alert('Success', 'Sign up successful');
 
             navigation.navigate('SignIn');

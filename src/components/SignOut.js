@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 const clearSession = async () => {
     try {
         await AsyncStorage.removeItem('user');
+        await AsyncStorage.removeItem('token');
     } catch (error) {
         console.error(error);
     }

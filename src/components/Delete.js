@@ -4,9 +4,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-const navigation = useNavigation();
-
 const Delete = () => {
+    const navigation = useNavigation();
     const handleDelete = async () => {
         try {
             Alert.alert(
@@ -20,12 +19,16 @@ const Delete = () => {
                     {
                         text: 'Delete', onPress: async () => {
                             const token = await AsyncStorage.getItem('token');
+                            const user = await AsyncStorage.getItem('user');
                             if (token) {
-                                await axios.delete('http://172.20.10.4:5009/api/deleteAccount', {
+                                const response = await axios.delete('http://172.20.10.4:5011/api/deleteAccount', {
                                     headers: {
-                                        Authorization: `Bearer ${token}`
-                                    }
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${token}`,
+                                    },
+                                    data: { userId: user }
                                 });
+                                console.log(response.data);
                                 await AsyncStorage.removeItem('user');
                                 await AsyncStorage.removeItem('token');
                                 navigation.navigate('SignUp');

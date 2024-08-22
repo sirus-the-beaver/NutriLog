@@ -68,7 +68,7 @@ const TabNavigator = () => {
                         iconName = 'bicycle';
                     } else if (route.name === 'ProgressLog') {
                         iconName = 'line-chart';
-                    } else if (route.name === 'Dashboard') {
+                    } else if (route.name === 'DashboardNavigator') {
                         iconName = 'home';
                     }
 
@@ -76,7 +76,7 @@ const TabNavigator = () => {
                 },
             })}
         >
-            <Tab.Screen name="Dashboard" component={DashboardNavigator} />
+            <Tab.Screen name="DashboardNavigator" component={DashboardNavigator} />
             <Tab.Screen name="FoodLog" component={FoodLogNavigator} />
             <Tab.Screen name="ExerciseLog" component={ExerciseLogNavigator} />
             <Tab.Screen name="ProgressLog" component={ProgressNavigator} />

@@ -111,7 +111,7 @@ router.post('/login', validateLogin, async (req, res) => {
             { expiresIn: '1h' },
             (error, token) => {
                 if (error) throw error;
-                res.json({ token, userId: user.id });
+                res.json({ token: token, userId: user.id });
             }
         );
     } catch (error) {
@@ -122,8 +122,12 @@ router.post('/login', validateLogin, async (req, res) => {
 
 router.delete('/deleteAccount', auth, async (req, res) => {
     try {
-        const userId = req.user._id;
-        await User.findByIdAndDelete(userId);
+        const { userId } = req.body;
+        const user = await User.findByIdAndDelete(userId);
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
 
         res.status(200).send('User deleted');
     } catch (error) {

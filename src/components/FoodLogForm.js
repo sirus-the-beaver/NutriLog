@@ -12,13 +12,16 @@ const FoodLogForm = () => {
     const [scannedData, setScannedData] = useState(null);
     const [nutritionalInfo, setNutritionalInfo] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [token, setToken] = useState(null);
     const navigation = useNavigation();
 
     useEffect(() => {
         const fetchUser = async () => {
             const user = await AsyncStorage.getItem('user');
+            const userToken = await AsyncStorage.getItem('token');
             if (user) {
                 setUserId(user);
+                setToken(userToken);
             }
         };
         fetchUser();
@@ -48,7 +51,14 @@ const FoodLogForm = () => {
                 iron: foodData.iron,
                 date: new Date(),
             }
-            await axios.post('http://172.20.10.4:5009/api/foodLog', fullData);
+            await axios.post('http://172.20.10.4:5011/api/foodLog', 
+                fullData,
+                { headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                    }
+                }
+            );
         } catch (error) {
             console.error(error);
         }
