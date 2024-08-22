@@ -1,42 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Text, View } from 'react-native';
-import { fetchOfferings, purchasePackage, checkSubscriptionStatus } from '../../backend/services/PurchaseService';
+import React from 'react';
+import { Button, Text, View, ActivityIndicator } from 'react-native';
+import usePurchase from '../hooks/usePurchase';
 
 const PurchaseScreen = () => {
-  const [offerings, setOfferings] = useState(null);
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const { customerInfo, offerings, isLoading, purchaseProduct, restorePurchases } = usePurchase();
 
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        const fetchedOfferings = await fetchOfferings();
-        setOfferings(fetchedOfferings);
-        const subscriptionStatus = await checkSubscriptionStatus();
-        setIsSubscribed(subscriptionStatus);
-      } catch (error) {
-        console.error("Initialization error:", error);
-      }
-    };
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
 
-    initialize();
-  }, []);
-
-  const handlePurchase = async (packageIdentifier) => {
+  const handlePurchase = async (productIdentifier) => {
     try {
-      await purchasePackage(packageIdentifier);
-      alert('Purchase successful!');
+      const result = await purchaseProduct(productIdentifier);
+      console.log('Purchase result:', result);
     } catch (error) {
       alert('Purchase failed. Please try again.');
     }
   };
 
+  const handleRestore = async () => {
+    try {
+      const result = await restorePurchases();
+      console.log('Restore result:', result);
+    } catch (error) {
+      alert('Restore failed. Please try again.');
+    }
+  };
+
   return (
     <View>
-      <Text>Offerings:</Text>
-      {offerings && offerings.current && offerings.current.availablePackages.map(pkg => (
-        <Button key={pkg.identifier} title={`Buy ${pkg.product.title}`} onPress={() => handlePurchase(pkg.identifier)} />
+      <Text>Welcome to the Purchase Screen</Text>
+      {offerings && offerings.current && offerings.current.availablePackages.map((pkg) => (
+        <Button
+          key={pkg.identifier}
+          title={`Buy ${pkg.product.title} for ${pkg.product.priceString}`}
+          onPress={() => handlePurchase(pkg.identifier)}
+        />
       ))}
-      <Text>Subscription Status: {isSubscribed ? "Active" : "Inactive"}</Text>
+      <Button title="Restore Purchases" onPress={handleRestore} />
     </View>
   );
 };
