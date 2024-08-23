@@ -13,9 +13,7 @@ const App = () => {
     }, []);
 
     return (
-        <View>
-            <AppNavigator />
-        </View>
+        <AppNavigator />
     )
 };
 

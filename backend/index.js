@@ -9,6 +9,7 @@ const subscriptionRoutes = require('./routes/subscriptionRoutes');
 const foodLogRoutes = require('./routes/foodLogRoutes');
 const exerciseLogRoutes = require('./routes/exerciseLogRoutes');
 const progressRoutes = require('./routes/progressRoutes');
+const revenueCatRoutes = require('./routes/revenueCatRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -29,6 +30,7 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 app.use('/api', userRoutes);
+app.use('/api', revenueCatRoutes);
 
 app.use('/api', auth);
 app.use('/api', purchaseRoutes);

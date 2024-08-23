@@ -1,4 +1,4 @@
-import React, { useStae, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Purchases from 'react-native-purchases';
 
 const usePurchase = () => {
@@ -25,7 +25,7 @@ const usePurchase = () => {
 
     const purchaseProduct = async (productIdentifier) => {
         try {
-            const purchase = await Purchases.purchaseProduct(productIdentifier);
+            const purchase = await Purchases.purchasePackage(productIdentifier);
             return purchase;
         } catch (error) {
             console.error('Error purchasing product:', error);
@@ -35,7 +35,7 @@ const usePurchase = () => {
 
     const restorePurchases = async () => {
         try {
-            const restored = await Purchases.restoreTransactions();
+            const restored = await Purchases.restorePurchases();
             return restored;
         } catch (error) {
             console.error('Error restoring purchases:', error);
@@ -43,12 +43,23 @@ const usePurchase = () => {
         }
     };
 
+    const checkSubscription = async () => {
+        try {
+            const purchaserInfo = await Purchases.getCustomerInfo();
+            return purchaserInfo;
+        } catch (error) {
+            console.error('Error checking subscription:', error);
+            throw error;
+        }
+    }
+
     return {
         customerInfo,
         offerings,
         isLoading,
         purchaseProduct,
         restorePurchases,
+        checkSubscription,
     };
 };
 

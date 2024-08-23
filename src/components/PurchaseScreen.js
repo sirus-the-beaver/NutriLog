@@ -3,7 +3,7 @@ import { Button, Text, View, ActivityIndicator } from 'react-native';
 import usePurchase from '../hooks/usePurchase';
 
 const PurchaseScreen = () => {
-  const { customerInfo, offerings, isLoading, purchaseProduct, restorePurchases } = usePurchase();
+  const { customerInfo, offerings, isLoading, purchaseProduct, restorePurchases, checkSubscription } = usePurchase();
 
   if (isLoading) {
     return <ActivityIndicator size="large" />;
@@ -27,6 +27,15 @@ const PurchaseScreen = () => {
     }
   };
 
+  const handleCheckSubscription = async () => {
+    try {
+      const result = await checkSubscription();
+      console.log('Subscription result:', result);
+    } catch (error) {
+      alert('Subscription check failed. Please try again.');
+    }
+  };
+
   return (
     <View>
       <Text>Welcome to the Purchase Screen</Text>
@@ -37,6 +46,7 @@ const PurchaseScreen = () => {
           onPress={() => handlePurchase(pkg.identifier)}
         />
       ))}
+      <Button title="Check Subscription" onPress={handleCheckSubscription} />
       <Button title="Restore Purchases" onPress={handleRestore} />
     </View>
   );

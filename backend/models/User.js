@@ -2,6 +2,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
+const SubscriptionSchema = new Schema({
+    productId: {
+        type: String,
+        required: true,
+    },
+    purchaseDate: {
+        type: Date,
+        required: true,
+    },
+    expiryDate: {
+        type: Date,    
+    },
+    status: {
+        type: String,
+        enum: ['active', 'cancelled'],
+        default: 'active',
+    }
+})
+
 // Create a new schema for the user
 const UserSchema = new Schema({
     name: {
@@ -16,7 +35,8 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    subscription: SubscriptionSchema,
 })
 
 // Middleware to hash the password before saving it to the database
