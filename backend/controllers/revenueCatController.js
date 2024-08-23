@@ -2,17 +2,20 @@ const User = require('../models/User');
 
 // Handle initial purchase event
 async function handleInitialPurchase(event) {
-    const { subscriber, product_id } = event;
-    const userId = subscriber.original_app_user_id;
+    const { app_user_id, product_id, purchased_at_ms, expiration_at_ms, id, store, presented_offering_id } = event.event;
+    const userId = app_user_id;
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findOne({ appUserId: userId });
 
         if (user) {
             user.subscription = {
                 productId: product_id,
-                purchaseDate: new Date(subscriber.original_purchase_date),
-                expiryDate: new Date(subscriber.expiration_at),
+                purchaseDate: new Date(purchased_at_ms),
+                expiryDate: new Date(expiration_at_ms),
+                originalTransactionID: id,
+                store: store,
+                presentedOfferingId: presented_offering_id,
                 status: 'active',
             };
             await user.save();
@@ -27,14 +30,18 @@ async function handleInitialPurchase(event) {
 
 // Handle renewal event
 async function handleRenewal(event) {
-    const { subscriber, product_id } = event;
-    const userId = subscriber.original_app_user_id;
+    const { app_user_id, product_id, purchased_at_ms, expiration_at_ms, id, store, presented_offering_id } = event.event;
+    const userId = app_user_id;
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findOne({ appUserId: userId });
 
         if (user && user.subscription.productId === product_id) {
-            user.subscription.expiryDate = new Date(subscriber.expiration_at);
+            user.subscription.expiryDate = new Date(expiration_at_ms);
+            user.subscription.originalTransactionID = id;
+            user.subscription.store = store;
+            user.subscription.presentedOfferingId = presented_offering_id;
+            user.purchaseDate = new Date(purchased_at_ms);
             await user.save();
             console.log('User subscription renewed:', user);
         } else {
@@ -47,15 +54,19 @@ async function handleRenewal(event) {
 
 // Handle cancellation event
 async function handleCancellation(event) {
-    const { subscriber, product_id } = event;
-    const userId = subscriber.original_app_user_id;
+    const { app_user_id, product_id, purchased_at_ms, expiration_at_ms, id, store, presented_offering_id } = event.event;
+    const userId = app_user_id;
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findOne({ appUserId: userId });
 
         if (user && user.subscription.productId === product_id) {
             user.subscription.status = 'cancelled';
-            user.subscription.expiryDate = new Date(subscriber.expiration_at);
+            user.subscription.expiryDate = new Date(expiration_at_ms);
+            user.subscription.originalTransactionID = id;
+            user.subscription.store = store;
+            user.subscription.presentedOfferingId = presented_offering_id;
+            user.purchaseDate = new Date(purchased_at_ms);
             await user.save();
             console.log('User subscription cancelled:', user);
         } else {
@@ -66,10 +77,9 @@ async function handleCancellation(event) {
     }
 };
 
-
 exports.handleRevenueCatWebhook = async (req, res) => {
     try {
-        const event = req.body;
+        const event = req.body.event;
 
         console.log('Received RevenueCat event:', event);
 

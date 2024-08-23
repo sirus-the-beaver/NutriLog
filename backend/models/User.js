@@ -18,11 +18,27 @@ const SubscriptionSchema = new Schema({
         type: String,
         enum: ['active', 'cancelled'],
         default: 'active',
-    }
+    },
+    originalTransactionId: {
+        type: String,
+        default: null,
+    },
+    store: {
+        type: String,
+        enum: ['PLAY_STORE', 'APP_STORE'],
+    },
+    presentedOfferingId: {
+        type: String,
+        default: null,
+    },
 })
 
 // Create a new schema for the user
 const UserSchema = new Schema({
+    appUserId: {
+        type: String,
+        unique: true,
+    },
     name: {
         type: String,
         required: true,
@@ -36,7 +52,7 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    subscription: SubscriptionSchema,
+    subscription: [SubscriptionSchema],
 })
 
 // Middleware to hash the password before saving it to the database
