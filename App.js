@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState, useRef } from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
 import { REVENUECAT_API_KEY, REVENUECAT_DEBUG } from './src/utils/config';
+import usePurchase from './src/hooks/usePurchase';
 import Purchases from 'react-native-purchases';
 import { Platform, View } from 'react-native';
 import mobileAds, { BannerAd, TestIds, BannerAdSize, useForeground } from 'react-native-google-mobile-ads';
@@ -23,6 +24,8 @@ const bannerAdUnitId = Platform.select({
 const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : bannerAdUnitId;
 
 const App = () => {
+    const { isAdFree } = usePurchase();
+
     useEffect(() => {
         Purchases.configure({
             apiKey: REVENUECAT_API_KEY,
@@ -38,13 +41,15 @@ const App = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <BannerAd
-                unitId={adUnitId}
-                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                requestOptions={{
-                    requestNonPersonalizedAdsOnly: true,
-                }}
-            />
+            {!isAdFree && (
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                    }}
+                />
+            )}
             <AppNavigator />
         </View>
     )

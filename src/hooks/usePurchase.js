@@ -5,6 +5,7 @@ const usePurchase = () => {
     const [customerInfo, setCustomerInfo] = useState(null);
     const [offerings, setOfferings] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isAdFree, setIsAdFree] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -13,6 +14,9 @@ const usePurchase = () => {
                 const offerings = await Purchases.getOfferings();
                 setCustomerInfo(info);
                 setOfferings(offerings);
+                if (info.entitlements.active['ad-free']['isActive']) {
+                    setIsAdFree(true);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -59,6 +63,7 @@ const usePurchase = () => {
         customerInfo,
         offerings,
         isLoading,
+        isAdFree,
         purchaseProduct,
         restorePurchases,
         checkSubscription,
