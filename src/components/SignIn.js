@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Button, Text, TextInput } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Purchases from 'react-native-purchases';
 
 const SignIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -14,6 +15,11 @@ const SignIn = ({ navigation }) => {
             );
             await AsyncStorage.setItem('user', response.data.userId);
             await AsyncStorage.setItem('token', response.data.token);
+
+            if (response.data.appUserId) {
+                await Purchases.setCustomerUserId(response.data.appUserId);
+            }
+
             navigation.navigate('TabNavigator');
         } catch (error) {
             console.error(error);

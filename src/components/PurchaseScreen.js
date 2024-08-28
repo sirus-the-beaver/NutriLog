@@ -1,17 +1,19 @@
 import React from 'react';
 import { Button, Text, View, ActivityIndicator } from 'react-native';
 import usePurchase from '../hooks/usePurchase';
+import { useNavigation } from '@react-navigation/native';
 
 const PurchaseScreen = () => {
   const { customerInfo, offerings, isLoading, purchaseProduct, restorePurchases, checkSubscription } = usePurchase();
+  const navigation = useNavigation();
 
   if (isLoading) {
     return <ActivityIndicator size="large" />;
   }
 
-  const handlePurchase = async (productIdentifier) => {
+  const handlePurchase = async (pkg) => {
     try {
-      const result = await purchaseProduct(productIdentifier);
+      const result = await purchaseProduct(pkg);
       console.log('Purchase result:', result);
     } catch (error) {
       alert('Purchase failed. Please try again.');
@@ -30,7 +32,7 @@ const PurchaseScreen = () => {
   const handleCheckSubscription = async () => {
     try {
       const result = await checkSubscription();
-      console.log('Subscription result:', result);
+      navigation.navigate('SubscriptionInformation', { customerInfo: result });
     } catch (error) {
       alert('Subscription check failed. Please try again.');
     }
@@ -43,7 +45,7 @@ const PurchaseScreen = () => {
         <Button
           key={pkg.identifier}
           title={`Buy ${pkg.product.title} for ${pkg.product.priceString}`}
-          onPress={() => handlePurchase(pkg.identifier)}
+          onPress={() => handlePurchase(pkg)}
         />
       ))}
       <Button title="Check Subscription" onPress={handleCheckSubscription} />

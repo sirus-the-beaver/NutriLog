@@ -23,10 +23,12 @@ const usePurchase = () => {
         fetchData();
     }, []);
 
-    const purchaseProduct = async (productIdentifier) => {
+    const purchaseProduct = async (pkg) => {
         try {
-            const purchase = await Purchases.purchasePackage(productIdentifier);
-            return purchase;
+            const { customerInfo } = await Purchases.purchasePackage(pkg);
+            if (customerInfo.entitlements.active.length > 0) {
+                console.log('Entitlements:', purchaserInfo.entitlements.active);
+            }
         } catch (error) {
             console.error('Error purchasing product:', error);
             throw error;

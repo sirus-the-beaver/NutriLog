@@ -15,6 +15,7 @@ import ProgressList from '../components/ProgressList';
 import UserSettings from '../components/UserSettings';
 import Dashboard from '../components/Dashboard';
 import PurchaseScreen from '../components/PurchaseScreen';
+import SubscriptionInformation from '../components/SubscriptionInformation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
@@ -93,6 +94,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="SignOut" component={SignOut} />
                 <Stack.Screen name="UserSettings" component={UserSettings} />
+                <Stack.Screen name="SubscriptionInformation" component={SubscriptionInformation} />
                 <Stack.Screen name="PurchaseScreen" component={PurchaseScreen} />
                 <Stack.Screen name="TabNavigator" component={TabNavigator} />
             </Stack.Navigator>
