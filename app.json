@@ -1,4 +1,9 @@
 {
   "name": "NutriLog",
-  "displayName": "NutriLog"
+  "displayName": "NutriLog",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3405415006338202~7549360214",
+    "ios_app_id": "ca-app-pub-3405415006338202~2125643149",
+    "user_tracking_usage_description": "This identifier will be used to deliver personalized ads to you."
+  }
 }
