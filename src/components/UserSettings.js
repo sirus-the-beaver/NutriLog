@@ -10,7 +10,7 @@ const UserSettings = () => {
     return (
         <View>
             <SignOut />
-            <Button title="Manage Subscriptions" onPress={() => navigation.navigate('PurchaseScreen')} />
+            <Button title="Manage Subscriptions" onPress={() => navigation.navigate('Purchases')} />
             <Delete />
         </View>
     );

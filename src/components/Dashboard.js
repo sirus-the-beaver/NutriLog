@@ -9,7 +9,7 @@ const Dashboard = () => {
         <View>
             <Text>Dashboard</Text>
             <Text>Welcome</Text>
-            <Button title="Settings" onPress={() => navigation.navigate('UserSettings')} />
+            <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
         </View>
     );
 }

@@ -11,6 +11,7 @@ const usePurchase = () => {
         const fetchData = async () => {
             try {
                 const info = await Purchases.getCustomerInfo();
+                console.log('Customer Info:', info);
                 const offerings = await Purchases.getOfferings();
                 setCustomerInfo(info);
                 setOfferings(offerings);

@@ -23,15 +23,15 @@ const Tab = createBottomTabNavigator();
 
 const DashboardNavigator = () => {
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="DashboardNavigator" component={Dashboard} />
         </Stack.Navigator>
     );
 };
 
 const FoodLogNavigator = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="FoodLogList" component={FoodLogList} />
             <Stack.Screen name="FoodLogForm" component={FoodLogForm} />
             <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
@@ -41,7 +41,7 @@ const FoodLogNavigator = () => {
 
 const ExerciseLogNavigator = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="ExerciseLogList" component={ExerciseLogList} />
             <Stack.Screen name="ExerciseLogForm" component={ExerciseLogForm} />
         </Stack.Navigator>
@@ -50,7 +50,7 @@ const ExerciseLogNavigator = () => {
 
 const ProgressNavigator = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="ProgressList" component={ProgressList} />
             <Stack.Screen name="ProgressForm" component={ProgressForm} />
         </Stack.Navigator>
@@ -64,13 +64,13 @@ const TabNavigator = () => {
                 tabBarIcon: ({ color, size }) => {
                     let iconName;
 
-                    if (route.name === 'FoodLog') {
+                    if (route.name === 'Food Log') {
                         iconName = 'cutlery';
-                    } else if (route.name === 'ExerciseLog') {
+                    } else if (route.name === 'Exercise Log') {
                         iconName = 'bicycle';
-                    } else if (route.name === 'ProgressLog') {
+                    } else if (route.name === 'Progress Log') {
                         iconName = 'line-chart';
-                    } else if (route.name === 'DashboardNavigator') {
+                    } else if (route.name === 'Dashboard') {
                         iconName = 'home';
                     }
 
@@ -78,10 +78,10 @@ const TabNavigator = () => {
                 },
             })}
         >
-            <Tab.Screen name="DashboardNavigator" component={DashboardNavigator} />
-            <Tab.Screen name="FoodLog" component={FoodLogNavigator} />
-            <Tab.Screen name="ExerciseLog" component={ExerciseLogNavigator} />
-            <Tab.Screen name="ProgressLog" component={ProgressNavigator} />
+            <Tab.Screen name="Dashboard" component={DashboardNavigator} />
+            <Tab.Screen name="Food Log" component={FoodLogNavigator} />
+            <Tab.Screen name="Exercise Log" component={ExerciseLogNavigator} />
+            <Tab.Screen name="Progress Log" component={ProgressNavigator} />
         </Tab.Navigator>
     );
 };
@@ -93,10 +93,14 @@ const AppNavigator = () => {
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="SignOut" component={SignOut} />
-                <Stack.Screen name="UserSettings" component={UserSettings} />
-                <Stack.Screen name="SubscriptionInformation" component={SubscriptionInformation} />
-                <Stack.Screen name="PurchaseScreen" component={PurchaseScreen} />
-                <Stack.Screen name="TabNavigator" component={TabNavigator} />
+                <Stack.Screen name="Settings" component={UserSettings} />
+                <Stack.Screen name="Subscription Information" component={SubscriptionInformation} />
+                <Stack.Screen name="Purchases" component={PurchaseScreen} />
+                <Stack.Screen
+                    name="TabNavigator"
+                    component={TabNavigator}
+                    options={{ headerShown: false }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

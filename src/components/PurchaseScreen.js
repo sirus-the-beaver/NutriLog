@@ -32,7 +32,7 @@ const PurchaseScreen = () => {
   const handleCheckSubscription = async () => {
     try {
       const result = await checkSubscription();
-      navigation.navigate('SubscriptionInformation', { customerInfo: result });
+      navigation.navigate('Subscription Information', { customerInfo: result });
     } catch (error) {
       alert('Subscription check failed. Please try again.');
     }

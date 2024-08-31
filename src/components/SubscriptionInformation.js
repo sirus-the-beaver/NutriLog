@@ -13,7 +13,7 @@ const SubscriptionInformation = ({ route }) => {
     }, [route.params]);
 
     const handleManageSubscription = async () => {
-        navigation.navigate('PurchaseScreen');
+        navigation.navigate('Purchases');
     }
 
     if (isLoading) {
