@@ -5,7 +5,6 @@ import axios from 'axios';
 import SignOut from './SignOut';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { set } from 'mongoose';
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
@@ -58,6 +57,22 @@ const FoodLogList = () => {
         </View>
     );
 
+    const renderMealSection = (meal) => {
+        const mealLogs = foodLogs.filter(log => log.mealType === meal);
+
+        return (
+            <View>
+                <Text>{meal}</Text>
+                <FlatList
+                    data={mealLogs}
+                    renderItem={renderItem}
+                    keyExtractor={item => item._id.toString()}
+                />
+                <Button title={`Add ${meal}`} onPress={() => navigation.navigate('FoodLogForm', { meal })} />
+            </View>
+        );
+    };
+
     const handleDelete = async (id) => {
         try {
             console.log(id);
@@ -87,12 +102,10 @@ const FoodLogList = () => {
                     }}
                 />
             )}
-            <FlatList
-                data={foodLogs}
-                renderItem={renderItem}
-                keyExtractor={item => item._id.toString()}
-            />
-            <Button title="Add Food" onPress={() => navigation.navigate('FoodLogForm')} />
+            {renderMealSection('Breakfast')}
+            {renderMealSection('Lunch')}
+            {renderMealSection('Dinner')}
+            {renderMealSection('Snack')}
         </View>
     );
 };

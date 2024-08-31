@@ -51,6 +51,11 @@ const FoodLogSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    mealType: {
+        type: String,
+        enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack'],
+        required: true,
+    },
     date: {
         type: Date,
         default: Date.now,

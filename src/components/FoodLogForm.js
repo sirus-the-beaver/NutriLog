@@ -6,14 +6,20 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignOut from './SignOut';
 import { useNavigation } from '@react-navigation/native';
+import { use } from '../../backend/routes/foodLogRoutes';
 
-const FoodLogForm = () => {
+const FoodLogForm = ({ route }) => {
     const [isScannerVisible, setScannerVisible] = useState(false);
     const [scannedData, setScannedData] = useState(null);
     const [nutritionalInfo, setNutritionalInfo] = useState(null);
+    const [mealType, setMealType] = useState('');
     const [userId, setUserId] = useState(null);
     const [token, setToken] = useState(null);
     const navigation = useNavigation();
+
+    useEffect(() => {
+        setMealType(route.params.meal);
+    }, [route.params]);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -49,6 +55,7 @@ const FoodLogForm = () => {
                 sugars: foodData.sugars,
                 protein: foodData.protein,
                 iron: foodData.iron,
+                meal: mealType,
                 date: new Date(),
             }
             await axios.post('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/foodLog', 
