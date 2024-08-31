@@ -4,9 +4,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import SignOut from './SignOut';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { set } from 'mongoose';
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [datePickerOpen, setDatePickerOpen] = useState(false);
+    const [totalCalories, setTotalCalories] = useState(0);
     const navigation = useNavigation();
 
     useFocusEffect(
@@ -20,16 +25,20 @@ const FoodLogList = () => {
                             { headers: { 'Content-Type': 'application/json',
                                         Authorization: `Bearer ${token}`
                                         }
-                        }
-                        )
-                        setFoodLogs(response.data);
+                        })
+                        const logs = response.data.filter(log => 
+                            new Date(log.date).toLocaleDateString() === selectedDate.toLocaleDateString()
+                        );
+                        setFoodLogs(logs);
+                        const total = logs.reduce((acc, log) => acc + log.calories, 0);
+                        setTotalCalories(total);
                     };
                 } catch (error) {
                     console.error(error);
                 }
             }
             fetchFoodLogs();
-        }, [])
+        }, [selectedDate])
     );
 
     const renderItem = ({ item }) => (
@@ -45,7 +54,6 @@ const FoodLogList = () => {
             <Text>Sugar: {item.sugars} g</Text>
             <Text>Protein: {item.protein} g</Text>
             <Text>Iron: {item.iron}%</Text>
-            <Text>Date: {new Date(item.date).toLocaleDateString()}</Text>
             <Button title="Delete" onPress={() => handleDelete(item._id)} />
         </View>
     );
@@ -64,6 +72,21 @@ const FoodLogList = () => {
         <View>
             <SignOut />
             <Text>Food Log</Text>
+            <Text>Total Calories: {totalCalories}</Text>
+            <Text>Date: {selectedDate.toLocaleDateString()}</Text>
+            <Button title="Select Date" onPress={() => setDatePickerOpen(true)} />
+            {datePickerOpen && (
+                <DateTimePicker
+                    value={selectedDate}
+                    mode="date"
+                    display="default"
+                    onChange={(event, date) => {
+                        const currentDate = date || selectedDate;
+                        setDatePickerOpen(false);
+                        setSelectedDate(currentDate);
+                    }}
+                />
+            )}
             <FlatList
                 data={foodLogs}
                 renderItem={renderItem}

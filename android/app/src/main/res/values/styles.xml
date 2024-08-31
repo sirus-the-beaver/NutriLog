@@ -1,9 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+        <item name="dialogPreferredPadding">16dp</item>
+        <item name="dialogCornerRadius">4dp</item>
+        <item name="android:dialogCornerRadius">4dp</item>
     </style>
 
 </resources>
