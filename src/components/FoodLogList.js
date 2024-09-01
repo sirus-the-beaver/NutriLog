@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, FlatList, Button } from 'react-native';
+import { View, Text, SectionList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import SignOut from './SignOut';
@@ -57,34 +57,30 @@ const FoodLogList = () => {
         </View>
     );
 
-    const renderMealSection = (meal) => {
-        const mealLogs = foodLogs.filter(log => log.mealType === meal);
-
-        return (
-            <View>
-                <Text>{meal}</Text>
-                <FlatList
-                    data={mealLogs}
-                    renderItem={renderItem}
-                    keyExtractor={item => item._id.toString()}
-                />
-                <Button title={`Add ${meal}`} onPress={() => navigation.navigate('FoodLogForm', { meal })} />
-            </View>
-        );
-    };
-
     const handleDelete = async (id) => {
         try {
-            console.log(id);
-            await axios.delete(`https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/foodLog/${id}`);
+            const token = await AsyncStorage.getItem('token');
+            await axios.delete(`https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/foodLog/${id}`,
+                { headers: { 
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
             setFoodLogs(foodLogs.filter(log => log._id !== id));
         } catch (error) {
             console.error(error);
         }
     }
 
+    const mealLogs = [
+        {title: 'Breakfast', data: foodLogs.filter(log => log.mealType === 'Breakfast')},
+        {title: 'Lunch', data: foodLogs.filter(log => log.mealType === 'Lunch')},
+        {title: 'Dinner', data: foodLogs.filter(log => log.mealType === 'Dinner')},
+        {title: 'Snack', data: foodLogs.filter(log => log.mealType === 'Snack')}
+    ];
+
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <SignOut />
             <Text>Food Log</Text>
             <Text>Total Calories: {totalCalories}</Text>
@@ -102,10 +98,22 @@ const FoodLogList = () => {
                     }}
                 />
             )}
-            {renderMealSection('Breakfast')}
-            {renderMealSection('Lunch')}
-            {renderMealSection('Dinner')}
-            {renderMealSection('Snack')}
+            <SectionList
+                contentContainerStyle={{ paddingBottom: 20 }}
+                sections={mealLogs}
+                renderItem={renderItem}
+                keyExtractor={item => item._id.toString()}
+                renderSectionHeader={({ section: { title } }) => (
+                    <View>
+                        <Text>{title}</Text>
+                    </View>
+                )}
+                renderSectionFooter={({ section: { title } }) => (
+                    <View>
+                        <Button title={`Add ${title}`} onPress={() => navigation.navigate('FoodLogForm', { meal: title })} />
+                    </View>
+                )}
+            />
         </View>
     );
 };
