@@ -7,6 +7,7 @@ import SignIn from '../components/SignIn';
 import SignOut from '../components/SignOut';
 import FoodLogForm from '../components/FoodLogForm';
 import FoodLogList from '../components/FoodLogList';
+import Macros from '../components/Macros';
 import BarcodeScanner from '../components/BarcodeScanner';
 import ExerciseLogForm from '../components/ExerciseLogForm';
 import ExerciseLogList from '../components/ExerciseLogList';
@@ -35,6 +36,7 @@ const FoodLogNavigator = () => {
             <Stack.Screen name="FoodLogList" component={FoodLogList} />
             <Stack.Screen name="FoodLogForm" component={FoodLogForm} />
             <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+            <Stack.Screen name="Macros" component={Macros} />
         </Stack.Navigator>
     );
 };

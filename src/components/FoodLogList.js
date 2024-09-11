@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, SectionList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
+    const [macros, setMacros] = useState({ carbs: 0, protein: 0, fat: 0 });
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [datePickerOpen, setDatePickerOpen] = useState(false);
     const [totalCalories, setTotalCalories] = useState(0);
@@ -79,6 +80,20 @@ const FoodLogList = () => {
         {title: 'Snack', data: foodLogs.filter(log => log.mealType === 'Snack')}
     ];
 
+    useEffect(() => {
+        const calculateMacros = () => {
+            if (foodLogs.length === 0) return;
+            const macros = foodLogs.reduce((acc, log) => {
+                acc.carbs += log.total_carbohydrates;
+                acc.protein += log.protein;
+                acc.fat += log.total_fat;
+                return acc;
+            }, { carbs: 0, protein: 0, fat: 0 });
+            setMacros(macros);
+        }
+        calculateMacros();
+    }, [foodLogs]);
+
     return (
         <View style={{ flex: 1 }}>
             <SignOut />
@@ -114,6 +129,9 @@ const FoodLogList = () => {
                     </View>
                 )}
             />
+            <View>
+                <Button title="Nutrition" onPress={() => navigation.navigate('Macros', { macros: macros})} />
+            </View>
         </View>
     );
 };
