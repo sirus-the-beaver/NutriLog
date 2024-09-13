@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Button, Text, TextInput, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
 
 const SignUp = ({ navigation }) => {
     const [name, setName] = useState('');
@@ -33,8 +36,7 @@ const SignUp = ({ navigation }) => {
     }
 
     return (
-        <View>
-            <Text>Sign Up</Text>
+        <StyledView className='flex-1 p-4'>
             <TextInput
                 placeholder="Name"
                 value={name}
@@ -59,7 +61,7 @@ const SignUp = ({ navigation }) => {
             />
             <Button title="Sign Up" onPress={handleSignUp} />
             <Button title="Sign In" onPress={() => navigation.navigate('SignIn')} />
-        </View>
+        </StyledView>
     );
 };
 

@@ -2,8 +2,11 @@ import React, { useCallback, useState} from 'react';
 import { View, Text, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import SignOut from './SignOut';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const ExerciseLogList = () => {
     const [exerciseLogs, setExerciseLogs] = useState([]);
@@ -52,16 +55,14 @@ const ExerciseLogList = () => {
     }
 
     return (
-        <View>
-            <SignOut />
-            <Text>Exercise Log</Text>
+        <StyledView className='flex-1 p-4'>
             <FlatList
                 data={exerciseLogs}
                 renderItem={renderItem}
                 keyExtractor={item => item._id}
             />
             <Button title="Add Exercise" onPress={() => navigation.navigate('ExerciseLogForm')} />
-        </View>
+        </StyledView>
     );
 };
 

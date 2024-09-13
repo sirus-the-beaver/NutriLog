@@ -2,8 +2,10 @@ import React, { useEffect, useState} from 'react';
 import { View, Button, Text, TextInput } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SignOut from './SignOut';
 import { useNavigation } from '@react-navigation/native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
 
 const ProgressForm = () => {
     const [weight, setWeight] = useState('');
@@ -45,9 +47,7 @@ const ProgressForm = () => {
     };
 
     return (
-        <View>
-            <SignOut />
-            <Text>Progress</Text>
+        <StyledView className='flex-1 p-4'>
             <TextInput
                 placeholder="Weight"
                 value={weight}
@@ -59,7 +59,7 @@ const ProgressForm = () => {
                 onChangeText={setBodyFat}
             />
             <Button title="Submit" onPress={handleProgress} />
-        </View>
+        </StyledView>
     );
 };
 

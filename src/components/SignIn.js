@@ -3,6 +3,9 @@ import { View, Button, Text, TextInput } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Purchases from 'react-native-purchases';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
 
 const SignIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -29,8 +32,7 @@ const SignIn = ({ navigation }) => {
     
 
     return (
-        <View>
-            <Text>Sign In</Text>
+        <StyledView className='flex-1 p-4'>
             <TextInput
                 placeholder="Email"
                 value={email}
@@ -43,7 +45,7 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry
             />
             <Button title="Sign In" onPress={handleSignIn} />
-        </View>
+        </StyledView>
     );
 };
 

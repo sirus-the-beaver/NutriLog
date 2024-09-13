@@ -4,8 +4,11 @@ import BarcodeScanner from './BarcodeScanner';
 import FoodDataService from '../../backend/services/FoodDataService';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SignOut from './SignOut';
 import { useNavigation } from '@react-navigation/native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const FoodLogForm = ({ route }) => {
     const [isScannerVisible, setScannerVisible] = useState(false);
@@ -99,25 +102,24 @@ const FoodLogForm = ({ route }) => {
     }
 
     return (
-        <View>
-            <SignOut />
+        <StyledView className='flex-1 p-4'>
             <Button title="Scan Barcode" onPress={() => setScannerVisible(true)} />            
 
             {nutritionalInfo && (
-                <View>
-                    <Text>Food: {nutritionalInfo.name}</Text>
-                    <Text>Calories: {nutritionalInfo.calories}</Text>
-                    <Text>Total Fat: {nutritionalInfo.total_fat} g</Text>
-                    <Text>Saturated Fat: {nutritionalInfo.saturated_fat} g</Text>
-                    <Text>Cholesterol: {nutritionalInfo.cholesterol} mg</Text>
-                    <Text>Sodium: {nutritionalInfo.sodium} mg</Text>
-                    <Text>Total Carbohydrates: {nutritionalInfo.total_carbohydrates} g</Text>
-                    <Text>Dietary Fiber: {nutritionalInfo.dietary_fiber} g</Text>
-                    <Text>Sugars: {nutritionalInfo.sugars} g</Text>
-                    <Text>Protein: {nutritionalInfo.protein} g</Text>
-                    <Text>Iron: {nutritionalInfo.iron}%</Text>
+                <StyledView className='p-4 bg-gray-100 rounded-lg'>
+                    <StyledText className='text-lg font-bold mb-2'>Food: {nutritionalInfo.name}</StyledText>
+                    <StyledText>Calories: {nutritionalInfo.calories}</StyledText>
+                    <StyledText>Total Fat: {nutritionalInfo.total_fat} g</StyledText>
+                    <StyledText>Saturated Fat: {nutritionalInfo.saturated_fat} g</StyledText>
+                    <StyledText>Cholesterol: {nutritionalInfo.cholesterol} mg</StyledText>
+                    <StyledText>Sodium: {nutritionalInfo.sodium} mg</StyledText>
+                    <StyledText>Total Carbohydrates: {nutritionalInfo.total_carbohydrates} g</StyledText>
+                    <StyledText>Dietary Fiber: {nutritionalInfo.dietary_fiber} g</StyledText>
+                    <StyledText>Sugars: {nutritionalInfo.sugars} g</StyledText>
+                    <StyledText>Protein: {nutritionalInfo.protein} g</StyledText>
+                    <StyledText>Iron: {nutritionalInfo.iron}%</StyledText>
                     <Button title="Add to Food Log" onPress={addToFoodLog} />
-                </View>
+                </StyledView>
             )}
 
             <Modal
@@ -129,7 +131,7 @@ const FoodLogForm = ({ route }) => {
             </Modal>
             {scanError && <Text>Failed to scan barcode. Please try again.</Text>}
             <Button title="Food Log List" onPress={() => navigation.navigate('FoodLogList')} />
-        </View>
+        </StyledView>
     );
 };
 

@@ -15,7 +15,7 @@ const usePurchase = () => {
                 const offerings = await Purchases.getOfferings();
                 setCustomerInfo(info);
                 setOfferings(offerings);
-                if (info.entitlements.active['ad-free']['isActive']) {
+                if (info.activeSubscriptions.includes('ad_free:no-ads')) {
                     setIsAdFree(true);
                 }
             } catch (error) {

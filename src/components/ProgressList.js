@@ -2,8 +2,10 @@ import React, { useCallback, useState} from 'react';
 import { View, Button, FlatList, Text } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import SignOut from './SignOut';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
 
 const ProgressList = () => {
     const [progress, setProgress] = useState([]);
@@ -51,16 +53,14 @@ const ProgressList = () => {
     }
 
     return (
-        <View>
-            <SignOut />
-            <Text>Progress</Text>
+        <StyledView className='flex-1 p-4'>
             <FlatList
                 data={progress}
                 renderItem={renderItem}
                 keyExtractor={item => item._id}
             />
             <Button title="Add Progress" onPress={() => navigation.navigate('ProgressForm')} />
-        </View>
+        </StyledView>
     );
 };
 

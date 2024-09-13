@@ -2,9 +2,12 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, SectionList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import SignOut from './SignOut';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const FoodLogList = () => {
     const [foodLogs, setFoodLogs] = useState([]);
@@ -95,11 +98,9 @@ const FoodLogList = () => {
     }, [foodLogs]);
 
     return (
-        <View style={{ flex: 1 }}>
-            <SignOut />
-            <Text>Food Log</Text>
-            <Text>Total Calories: {totalCalories}</Text>
-            <Text>Date: {selectedDate.toLocaleDateString()}</Text>
+        <StyledView className='flex-1 p-4'>
+            <StyledText className='text-lg text-gray-700 mb-2'>Total Calories: {totalCalories}</StyledText>
+            <StyledText className='text-lg text-gray-700 mb-2'>Date: {selectedDate.toLocaleDateString()}</StyledText>
             <Button title="Select Date" onPress={() => setDatePickerOpen(true)} />
             {datePickerOpen && (
                 <DateTimePicker
@@ -132,7 +133,7 @@ const FoodLogList = () => {
             <View>
                 <Button title="Nutrition" onPress={() => navigation.navigate('Macros', { macros: macros})} />
             </View>
-        </View>
+        </StyledView>
     );
 };
 

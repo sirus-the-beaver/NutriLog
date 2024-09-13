@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Button, Text, TextInput } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SignOut from './SignOut';
 import { useNavigation } from '@react-navigation/native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const ExerciseLogForm = () => {
     const [exercise, setExercise] = useState('');
@@ -51,9 +54,7 @@ const ExerciseLogForm = () => {
     };
 
     return (
-        <View>
-            <SignOut />
-            <Text>Exercise Log</Text>
+        <StyledView className='flex-1 p-4'>
             <TextInput
                 placeholder="Exercise"
                 value={exercise}
@@ -75,7 +76,7 @@ const ExerciseLogForm = () => {
                 onChangeText={setCalories}
             />
             <Button title="Log Exercise" onPress={handleExerciseLog} />
-        </View>
+        </StyledView>
     );
 };
 

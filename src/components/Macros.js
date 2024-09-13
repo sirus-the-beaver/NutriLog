@@ -2,6 +2,10 @@ import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 import { useNavigation } from '@react-navigation/native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const Macros = ({ route }) => {
     const navigation = useNavigation();
@@ -30,8 +34,8 @@ const Macros = ({ route }) => {
       };
 
     return (
-        <View>
-            <Text>Macros</Text>
+        <StyledView className='flex-1 justify-center items-center bg-white p-4'>
+            <StyledText className='text-xl font-bold'>Macros</StyledText>
             <PieChart
                 data={pieChartData}
                 width={screenWidth}
@@ -43,14 +47,16 @@ const Macros = ({ route }) => {
                 center={[10, 0]}
                 absolute
             />
-            <View>
+            <StyledView className='mt-4'>
                 {pieChartData.map(macro => (
-                    <View key={macro.name}>
-                        <Text>{macro.name}: {macro.value}g ({((macro.value / totalMacros) * 100).toFixed(2)}%)</Text>
-                    </View>
+                    <StyledView key={macro.name} className='mb-2'>
+                        <StyledText className='text-base'>
+                            {macro.name}: {macro.value}g ({((macro.value / totalMacros) * 100).toFixed(2)}%)
+                        </StyledText>
+                    </StyledView>
                 ))}
-            </View>
-        </View>
+            </StyledView>
+        </StyledView>
     );
 };
 

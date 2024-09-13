@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const SubscriptionInformation = ({ route }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -25,13 +29,13 @@ const SubscriptionInformation = ({ route }) => {
     }
 
     return (
-        <View>
-            <Text>Subscription Information</Text>
+        <StyledView className='flex-1 justify-center items-center bg-white'>
+            <StyledText className='text-xl font-bold text-blue-500'>Subscription Information</StyledText>
             {subscriptionData && (
-                <Text>{subscriptionData}</Text>
+                <StyledText>{subscriptionData}</StyledText>
             )}
             <Button title="Manage Subscription" onPress={handleManageSubscription} />
-        </View>
+        </StyledView>
     );
 };
 
