@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, TextInput, StyleSheet } from 'react-native';
+import { View, Button, TextInput, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Purchases from 'react-native-purchases';
@@ -10,8 +10,25 @@ const StyledView = styled(View);
 const SignIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
 
-    const handleSignIn = async () => {
+    const handleEmailChange = (email) => {
+        setEmail(email);
+        setError(null);
+    }
+
+    const handlePasswordChange = (password) => {
+        setPassword(password);
+        setError(null);
+    }
+
+    const signInUser = async () => {
+        if (!email || !password) {
+            Alert.alert('Please enter email and password');
+            return;
+        }
+        setLoading(true);
+        setError(null);
         try {
             const response = await axios.post('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/login', { email, password },
                 { headers: { 'Content-Type': 'application/json' } }
@@ -22,14 +39,13 @@ const SignIn = ({ navigation }) => {
             if (response.data.appUserId) {
                 await Purchases.setCustomerUserId(response.data.appUserId);
             }
-
+            setLoading(false);
             navigation.navigate('TabNavigator');
         } catch (error) {
-            console.error(error);
+            setError('Failed to sign in');
+            setLoading(false);
         }
-    };
-
-    
+    }
 
     return (
         <StyledView className='flex-1 p-4'>
@@ -37,16 +53,17 @@ const SignIn = ({ navigation }) => {
                 style={styles.input}
                 placeholder="Email"
                 value={email.toLocaleLowerCase()}
-                onChangeText={setEmail}
+                onChangeText={handleEmailChange}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Password"
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={handlePasswordChange}
                 secureTextEntry
             />
-            <Button title="Sign In" onPress={handleSignIn} />
+            <Button title="Sign In" onPress={signInUser} />
+            {error && Alert.alert('Error', error)}
         </StyledView>
     );
 };

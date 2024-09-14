@@ -1222,6 +1222,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNPermissions (4.1.5):
+    - React-Core
   - RNPurchases (8.0.1):
     - PurchasesHybridCommon (= 13.0.1)
     - React-Core
@@ -1335,6 +1337,7 @@ DEPENDENCIES:
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNGoogleMobileAds (from `../node_modules/react-native-google-mobile-ads`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNPurchases (from `../node_modules/react-native-purchases`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -1469,6 +1472,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleMobileAds:
     :path: "../node_modules/react-native-google-mobile-ads"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNPurchases:
     :path: "../node_modules/react-native-purchases"
   RNScreens:
@@ -1544,6 +1549,7 @@ SPEC CHECKSUMS:
   RNDateTimePicker: 40ffda97d071a98a10fdca4fa97e3977102ccd14
   RNGestureHandler: efed690b8493a00b99654043daeb1335276ac4a2
   RNGoogleMobileAds: 46837131fd49c7642c83c7c3138a4e967bdf2ec0
+  RNPermissions: 294531ede5a64d1528463e88fffef05675842042
   RNPurchases: ce154ebf62cb25c95614540ccf01ea8c2f586e2d
   RNScreens: aa943ad421c3ced3ef5a47ede02b0cbfc43a012e
   RNSVG: 5da7a24f31968ec74f0b091e3440080f347e279b
