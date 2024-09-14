@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text, TextInput } from 'react-native';
+import { View, Button, Text, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -56,21 +56,25 @@ const ExerciseLogForm = () => {
     return (
         <StyledView className='flex-1 p-4'>
             <TextInput
+                style={styles.input}
                 placeholder="Exercise"
                 value={exercise}
                 onChangeText={setExercise}
             />
             <TextInput
+                style={styles.input}
                 placeholder="Hours"
                 value={hours}
                 onChangeText={setHours}
             />
             <TextInput
+                style={styles.input}
                 placeholder="Minutes"
                 value={minutes}
                 onChangeText={setMinutes}
             />
             <TextInput
+                style={styles.input}
                 placeholder="Calories"
                 value={calories}
                 onChangeText={setCalories}
@@ -79,5 +83,16 @@ const ExerciseLogForm = () => {
         </StyledView>
     );
 };
+
+const styles = StyleSheet.create({
+    input: {
+        borderWidth: 1,
+        borderColor: 'gray',
+        paddingLeft: 10,
+        marginBottom: 10,
+        height: 40,
+        borderRadius: 5
+    }
+});
 
 export default ExerciseLogForm;

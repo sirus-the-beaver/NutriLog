@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { View, Button, Text, TextInput } from 'react-native';
+import { View, Button, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from '@react-navigation/native';
@@ -49,11 +49,13 @@ const ProgressForm = () => {
     return (
         <StyledView className='flex-1 p-4'>
             <TextInput
+                style={styles.input}
                 placeholder="Weight"
                 value={weight}
                 onChangeText={setWeight}
             />
             <TextInput
+                style={styles.input}
                 placeholder="Body Fat"
                 value={bodyFat}
                 onChangeText={setBodyFat}
@@ -62,5 +64,16 @@ const ProgressForm = () => {
         </StyledView>
     );
 };
+
+const styles = StyleSheet.create({
+    input: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 10,
+        paddingLeft: 10,
+        borderRadius: 5,
+    },
+});
 
 export default ProgressForm;

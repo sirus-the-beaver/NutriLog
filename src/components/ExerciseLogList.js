@@ -1,5 +1,5 @@
 import React, { useCallback, useState} from 'react';
-import { View, Text, FlatList, Button } from 'react-native';
+import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -57,6 +57,7 @@ const ExerciseLogList = () => {
     return (
         <StyledView className='flex-1 p-4'>
             <FlatList
+                style={styles.list}
                 data={exerciseLogs}
                 renderItem={renderItem}
                 keyExtractor={item => item._id}
@@ -65,5 +66,11 @@ const ExerciseLogList = () => {
         </StyledView>
     );
 };
+
+const styles = StyleSheet.create({
+    list: {
+        marginBottom: 10
+    },
+})
 
 export default ExerciseLogList;

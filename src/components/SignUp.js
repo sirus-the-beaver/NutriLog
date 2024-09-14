@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, Text, TextInput, Alert } from 'react-native';
+import { View, Button, TextInput, Alert, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { styled } from 'nativewind';
@@ -38,22 +38,26 @@ const SignUp = ({ navigation }) => {
     return (
         <StyledView className='flex-1 p-4'>
             <TextInput
+                style={styles.input}
                 placeholder="Name"
                 value={name}
                 onChangeText={setName}
             />
             <TextInput
+                style={styles.input}
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
             />
             <TextInput
+                style={styles.input}
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
             />
             <TextInput
+                style={styles.input}
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
@@ -64,5 +68,14 @@ const SignUp = ({ navigation }) => {
         </StyledView>
     );
 };
+
+const styles = StyleSheet.create({
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+    },
+});
 
 export default SignUp;

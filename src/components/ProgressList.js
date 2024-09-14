@@ -1,5 +1,5 @@
 import React, { useCallback, useState} from 'react';
-import { View, Button, FlatList, Text } from 'react-native';
+import { View, Button, FlatList, Text, StyleSheet } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -55,6 +55,7 @@ const ProgressList = () => {
     return (
         <StyledView className='flex-1 p-4'>
             <FlatList
+                style={styles.list}
                 data={progress}
                 renderItem={renderItem}
                 keyExtractor={item => item._id}
@@ -63,5 +64,11 @@ const ProgressList = () => {
         </StyledView>
     );
 };
+
+const styles = StyleSheet.create({
+    list: {
+        marginBottom: 10,
+    },
+});
 
 export default ProgressList;

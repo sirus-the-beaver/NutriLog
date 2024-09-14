@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text, Modal, Alert } from 'react-native';
+import { View, Button, Text, Modal, Alert, StyleSheet } from 'react-native';
 import BarcodeScanner from './BarcodeScanner';
 import FoodDataService from '../../backend/services/FoodDataService';
 import axios from 'axios';
@@ -130,7 +130,6 @@ const FoodLogForm = ({ route }) => {
                 <BarcodeScanner onScan={handleScan} />
             </Modal>
             {scanError && <Text>Failed to scan barcode. Please try again.</Text>}
-            <Button title="Food Log List" onPress={() => navigation.navigate('FoodLogList')} />
         </StyledView>
     );
 };

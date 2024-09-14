@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, SectionList, Button } from 'react-native';
+import { View, Text, SectionList, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -115,6 +115,7 @@ const FoodLogList = () => {
                 />
             )}
             <SectionList
+                style={styles.list}
                 contentContainerStyle={{ paddingBottom: 20 }}
                 sections={mealLogs}
                 renderItem={renderItem}
@@ -136,5 +137,11 @@ const FoodLogList = () => {
         </StyledView>
     );
 };
+
+const styles = StyleSheet.create({
+    list: {
+        marginBottom: 10
+    }
+});
 
 export default FoodLogList;
