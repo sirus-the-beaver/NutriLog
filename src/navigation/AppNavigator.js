@@ -17,7 +17,7 @@ import UserSettings from '../components/UserSettings';
 import Dashboard from '../components/Dashboard';
 import PurchaseScreen from '../components/PurchaseScreen';
 import SubscriptionInformation from '../components/SubscriptionInformation';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Icon } from 'react-native-elements';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -76,7 +76,7 @@ const TabNavigator = () => {
                         iconName = 'home';
                     }
 
-                    return <Icon name={iconName} size={size} color={color} />;
+                    return <Icon name={iconName} size={size} type='font-awesome' color={color} />;
                 },
             })}
         >
