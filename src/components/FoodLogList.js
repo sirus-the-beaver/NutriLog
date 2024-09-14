@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, SectionList, Button, StyleSheet } from 'react-native';
+import { View, Text, SectionList, Button, StyleSheet, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -114,23 +114,25 @@ const FoodLogList = () => {
                     }}
                 />
             )}
-            <SectionList
-                style={styles.list}
-                contentContainerStyle={{ paddingBottom: 20 }}
-                sections={mealLogs}
-                renderItem={renderItem}
-                keyExtractor={item => item._id.toString()}
-                renderSectionHeader={({ section: { title } }) => (
-                    <View>
-                        <Text>{title}</Text>
-                    </View>
-                )}
-                renderSectionFooter={({ section: { title } }) => (
-                    <View>
-                        <Button title={`Add ${title}`} onPress={() => navigation.navigate('FoodLogForm', { meal: title })} />
-                    </View>
-                )}
-            />
+            <SafeAreaView style={styles.safeArea}>
+                <SectionList
+                    style={styles.list}
+                    contentContainerStyle={{ paddingBottom: 20 }}
+                    sections={mealLogs}
+                    renderItem={renderItem}
+                    keyExtractor={item => item._id.toString()}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <View>
+                            <Text>{title}</Text>
+                        </View>
+                    )}
+                    renderSectionFooter={({ section: { title } }) => (
+                        <View>
+                            <Button title={`Add ${title}`} onPress={() => navigation.navigate('FoodLogForm', { meal: title })} />
+                        </View>
+                    )}
+                />
+            </SafeAreaView>
             <View>
                 <Button title="Nutrition" onPress={() => navigation.navigate('Macros', { macros: macros})} />
             </View>
@@ -141,6 +143,9 @@ const FoodLogList = () => {
 const styles = StyleSheet.create({
     list: {
         marginBottom: 10
+    },
+    safeArea: {
+        flex: 1
     }
 });
 

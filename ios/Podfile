@@ -24,6 +24,7 @@ target 'NutriLog' do
   )
 
   pod 'RNPurchases', :path => '../node_modules/react-native-purchases'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'NutriLogTests' do
     inherit! :complete

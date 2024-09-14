@@ -36,7 +36,7 @@ const SignIn = ({ navigation }) => {
             <TextInput
                 style={styles.input}
                 placeholder="Email"
-                value={email}
+                value={email.toLocaleLowerCase()}
                 onChangeText={setEmail}
             />
             <TextInput
