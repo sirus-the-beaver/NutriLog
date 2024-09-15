@@ -18,7 +18,6 @@ const PurchaseScreen = () => {
   const handlePurchase = async (pkg) => {
     try {
       const result = await purchaseProduct(pkg);
-      console.log('Purchase result:', result);
     } catch (error) {
       alert('Purchase failed. Please try again.');
     }
@@ -52,11 +51,10 @@ const PurchaseScreen = () => {
 
   return (
     <StyledView className='flex-1 justify-center items-center bg-white p-4'>
-      <StyledText className='text-xl font-bold text-blue-500 mb-4'>Welcome to the Purchase Screen</StyledText>
       {offerings && offerings.current && !customerInfo.activeSubscriptions.includes('ad_free:no-ads') && offerings.current.availablePackages.map((pkg) => (
         <Button
           key={pkg.identifier}
-          title={`Buy ${pkg.product.title} for ${pkg.product.priceString}`}
+          title={`Buy Ad-Free for ${pkg.product.priceString}`}
           onPress={() => handlePurchase(pkg)}
         />
       ))}

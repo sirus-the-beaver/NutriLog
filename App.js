@@ -24,14 +24,19 @@ const bannerAdUnitId = Platform.select({
 const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : bannerAdUnitId;
 
 const App = () => {
-    const { isAdFree } = usePurchase();
-
     useEffect(() => {
         Purchases.configure({
             apiKey: REVENUECAT_API_KEY,
             observerMode: REVENUECAT_DEBUG,
         })
     }, []);
+    
+    const [showAds, setShowAds] = useState(true);
+    const { isAdFree } = usePurchase();
+
+    useEffect(() => {
+        setShowAds(!isAdFree);
+    }, [isAdFree]);
 
     const bannerRef = useRef<BannerAd>(null);
 
@@ -41,7 +46,7 @@ const App = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            {!isAdFree && (
+            {showAds && (
                 <BannerAd
                     unitId={adUnitId}
                     size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}

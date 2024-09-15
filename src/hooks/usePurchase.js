@@ -26,6 +26,24 @@ const usePurchase = () => {
         };
 
         fetchData();
+
+        const purchaserListener = (info) => {
+            setCustomerInfo(info);
+            if (info.activeSubscriptions.includes('ad_free:no-ads')) {
+                setIsAdFree(true);
+            } else {
+                setIsAdFree(false);
+            }
+        }
+
+        Purchases.addCustomerInfoUpdateListener(purchaserListener);
+
+        const intervalId = setInterval(fetchData, 5 * 60 * 1000);
+
+        return () => {
+            Purchases.removeCustomerInfoUpdateListener(purchaserListener);
+            clearInterval(intervalId);
+        }
     }, []);
 
     const purchaseProduct = async (pkg) => {
@@ -34,6 +52,8 @@ const usePurchase = () => {
             if (customerInfo.entitlements.active.length > 0) {
                 console.log('Entitlements:', purchaserInfo.entitlements.active);
             }
+            const appUserId = customerInfo.originalAppUserId;
+            
         } catch (error) {
             console.error('Error purchasing product:', error);
             throw error;

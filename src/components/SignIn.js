@@ -27,7 +27,6 @@ const SignIn = ({ navigation }) => {
             Alert.alert('Please enter email and password');
             return;
         }
-        setLoading(true);
         setError(null);
         try {
             const response = await axios.post('https://nutrilog-app-ed72f4c84fc2.herokuapp.com/api/login', { email, password },
@@ -38,12 +37,11 @@ const SignIn = ({ navigation }) => {
 
             if (response.data.appUserId) {
                 await Purchases.setCustomerUserId(response.data.appUserId);
+                console.log('Customer ID set:', response.data.appUserId);
             }
-            setLoading(false);
             navigation.navigate('TabNavigator');
         } catch (error) {
             setError('Failed to sign in');
-            setLoading(false);
         }
     }
 
